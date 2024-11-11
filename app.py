@@ -6,12 +6,13 @@ from flask import Flask, render_template, redirect, url_for, flash, request, ses
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask import Flask, request, jsonify
-from openai import OpenAI
+import openai
+
 
 base_url = "https://api.aimlapi.com/v1"
 api_key = "f45d2cc26b2e44428f9f14b0336bd7e0"
 system_prompt = "simple conversation"
-openai_api = OpenAI(api_key=api_key, base_url=base_url)
+openai_api = openai(api_key=api_key, base_url=base_url)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
