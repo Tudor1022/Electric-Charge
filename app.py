@@ -12,7 +12,10 @@ import openai
 base_url = "https://api.aimlapi.com/v1"
 api_key = "f45d2cc26b2e44428f9f14b0336bd7e0"
 system_prompt = "simple conversation"
-openai_api = openai(api_key=api_key, base_url=base_url)
+
+openai.api_key = api_key
+openai.api_base = base_url
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -21,7 +24,7 @@ db = SQLAlchemy(app)
 
 def generate_response(user_prompt):
     try:
-        completion = openai_api.chat.completions.create(
+        completion = openai.chat.completions.create(
             model="gpt-4-turbo",
             messages=[
                 {"role": "system", "content": system_prompt},
