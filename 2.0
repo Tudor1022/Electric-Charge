@@ -1,0 +1,11 @@
+Collecting sqlalchemy
+  Using cached SQLAlchemy-2.0.36-cp312-cp312-win_amd64.whl.metadata (9.9 kB)
+Collecting typing-extensions>=4.6.0 (from sqlalchemy)
+  Using cached typing_extensions-4.12.2-py3-none-any.whl.metadata (3.0 kB)
+Collecting greenlet!=0.4.17 (from sqlalchemy)
+  Using cached greenlet-3.1.1-cp312-cp312-win_amd64.whl.metadata (3.9 kB)
+Using cached SQLAlchemy-2.0.36-cp312-cp312-win_amd64.whl (2.1 MB)
+Using cached greenlet-3.1.1-cp312-cp312-win_amd64.whl (299 kB)
+Using cached typing_extensions-4.12.2-py3-none-any.whl (37 kB)
+Installing collected packages: typing-extensions, greenlet, sqlalchemy
+Successfully installed greenlet-3.1.1 sqlalchemy-2.0.36 typing-extensions-4.12.2

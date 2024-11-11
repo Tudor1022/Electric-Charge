@@ -4,8 +4,10 @@
 /* Body Style */
 body {
     font-family: 'Poppins', sans-serif;
-    background-image: url("bck.jpg"); /* Use the background image */
-    background-color: #333;
+    background-image: url("/static/images/bck.jpg"); /* Use the background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +15,7 @@ body {
     margin: 0;
 }
 
-/* Centered Sign-Up Card */
+/* Centered Container */
 .signup-container {
     width: 100%;
     max-width: 800px;
@@ -23,12 +25,14 @@ body {
     padding: 100px;
 }
 
+/* Card Styling */
 .signup-card {
     background-color: white;
     padding: 40px 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
+    max-width: 400px;
     text-align: center;
 }
 
@@ -53,7 +57,7 @@ label {
     color: #555;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="email"], input[type="password"] {
     padding: 12px;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -63,8 +67,8 @@ input[type="text"], input[type="password"] {
     transition: border-color 0.3s;
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
-    border-color: #3498db; /* Focused border color */
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    border-color: #3498db;
 }
 
 /* Button Styling */
@@ -80,14 +84,14 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #555; /* Hover effect */
+    background-color: #555;
 }
 
 /* Link Styling */
 a {
     display: inline-block;
     margin-top: 20px;
-    color: #333;
+    color: #3498db;
     text-decoration: none;
     font-size: 14px;
 }

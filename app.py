@@ -1,14 +1,22 @@
 import hashlib
+import os
+from doctest import debug
 from flask import Flask, render_template, redirect, url_for, flash, request, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask import Flask, request, jsonify
-from openai import OpenAI
+import openai
+import random
+import string
+from emailSender import send_email
 
 base_url = "https://api.aimlapi.com/v1"
 api_key = "f45d2cc26b2e44428f9f14b0336bd7e0"
-system_prompt = "simple conversation"
-openai_api = OpenAI(api_key=api_key, base_url=base_url)
+system_prompt = "simple conversation about everything on electric cars topic"
+
+openai.api_key = api_key
+openai.api_base = base_url
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -17,8 +25,9 @@ db = SQLAlchemy(app)
 
 def generate_response(user_prompt):
     try:
-        completion = openai_api.chat.completions.create(
-            model="gpt-4-turbo",
+        # Correct way to call the ChatCompletion API
+        completion = openai.ChatCompletion.create(
+            model="gpt-4-turbo",  # Use the correct model name
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
@@ -26,11 +35,15 @@ def generate_response(user_prompt):
             temperature=0.7,
             max_tokens=256,
         )
-        response = completion.choices[0].message.content
+        response = completion['choices'][0]['message']['content']
         return response
     except Exception as e:
         print(f"API Error: {e}")
         return "Sorry, I am having trouble responding right now."
+
+def generate_random_password(length=10):
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for i in range(length))
 
 class ElectricCar(db.Model):
     __tablename__ = 'electric_cars'
@@ -56,6 +69,7 @@ class Produse(db.Model):
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)  # Added email column
     password = db.Column(db.String(150), nullable=False)
 
 class Post(db.Model):
@@ -166,14 +180,15 @@ def home():
 def signup():
     if request.method == 'POST':
         username = request.form.get('username')
+        email = request.form.get('email')  # Get email from form
         password = request.form.get('password')
 
-        # Check if user already exists
-        if User.query.filter_by(username=username).first():
-            flash('User exists')
+        # Check if user or email already exists
+        if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
+            flash('User or email already exists')
         else:
             hashed_password = hash_password(password)
-            new_user = User(username=username, password=hashed_password)
+            new_user = User(username=username, email=email, password=hashed_password)  # Include email in user data
             db.session.add(new_user)
             db.session.commit()
             session['user_id'] = new_user.id
@@ -187,12 +202,41 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(username=username).first()
-        if user and check_password(user.password, password):
+        if not user:
+            flash('Account not created')
+        elif user and check_password(user.password, password):
             session['user_id'] = user.id
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password')
     return render_template('login.html')
+
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+
+        # Check if email exists in the database
+        user = User.query.filter_by(email=email).first()
+        if user:
+            # Generate a new password
+            new_password = generate_random_password()
+            hashed_password = hash_password(new_password)
+
+            # Update user's password in the database
+            user.password = hashed_password
+            db.session.commit()
+
+            # Send the new password to the user's email
+            send_email(email, new_password)  # Define the send_email function below
+
+            flash("A new password has been sent to your email.")
+            return redirect(url_for('login'))
+        else:
+            flash("No account found with this email.")
+
+    return render_template('forgotPassword.html')
 
 @app.route('/logout')
 def logout():
@@ -202,10 +246,6 @@ def logout():
 @app.route('/guide')
 def guide():
     return "Guide page"
-
-@app.route('/news')
-def news():
-    return "news page"
 
 @app.route('/map')
 def map():
@@ -231,13 +271,13 @@ def chat():
 @app.route('/forumMenu')
 def forumMenu():
     return render_template("meniuri.html", heading1='COMUNITATE\nENTUZIAȘTI EV', heading2='ȘTIRI \n ȘI ACTUALIZĂRI', heading3='CHATBOT \n SUPPORT', button1='forum',
-                           button2='news', button3='chat')
+                           button2='news', button3='chat', image_url1="/static/images/forum.png", image_url2="/static/images/benNews.jpg", image_url3="/static/images/chatBot.jpeg")
 
 @app.route('/marketMenu')
 def marketMenu():
     return render_template("meniuri.html", heading1='COMPARĂ \n MAȘINI EV', heading2='GĂSEȘTE \n PIESE',
                            heading3='RECENZII \n SPECIALIȘTI', button1='cars',
-                           button2='market', button3='chat')
+                           button2='market', button3='chat',image_url1="/static/images/comp.png", image_url2="/static/images/piese.png", image_url3="/static/images/rec.png")
 
 @app.route('/forum', methods=['GET', 'POST'])
 def forum():
@@ -308,8 +348,14 @@ def cars():
     return render_template('cars.html', cars=cars_data)
 
 
+@app.route('/news')
+def news():
+    return render_template("stiri.html")
+
 if __name__ == '__main__':
     with app.app_context():
+        db.drop_all()
         db.create_all()
         add_new_cars()# Populează baza de date doar dacă este necesar
-    app.run(debug=True)
+        app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), debug=True)
+

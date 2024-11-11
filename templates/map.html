@@ -6,121 +6,131 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
 <style>
-    /* General Body Styles */
-    body {
+    /* Font and Reset */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+    * {
         margin: 0;
         padding: 0;
-        font-family: 'Poppins', sans-serif;
-        background-color: #f0f0f0;
-        background-image: url("static/images/bck.jpg");
-        background-size: cover;
-        background-position: center;
-        color: #333;
-        height: 100%;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Professional gradient background */
+        color: #f4f4f4;
+        line-height: 1.6;
     }
 
-    /* Container Styling */
+    /* Container */
     .container {
         width: 90%;
-        max-width: 1200px;
-        margin: 25px auto;
-        background-color: rgba(255, 255, 255, 0.95);
-        border-radius: 12px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        max-width: 1400px;
+        margin: 40px auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         overflow: hidden;
-        animation: fadeIn 0.6s ease-out;
-        background-color: #D9D9D9
     }
 
-    /* Smooth Fade-in Animation */
-    @keyframes fadeIn {
-        0% { opacity: 0; transform: translateY(10px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Header Styling */
+    /* Header */
     .header {
-        background-color: #333;
-        padding: 40px;
-        font-size: 36px;
-        color: white;
+        background: #1e9564;
+        color: #fff;
+        padding: 30px;
         text-align: center;
+        font-size: 36px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1.8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-        border-radius: 12px 12px 0 0;
-    }
-
-    /* Map Container Styling */
-    .map-container {
-        height: 500px; /* Adjusted height for better visibility */
-        position: relative;
+        border-bottom: 6px solid #00b953;
     }
 
     /* Map Area */
+    .map-container {
+        height: 600px;
+        position: relative;
+    }
+
     #map {
         width: 100%;
         height: 100%;
-        border-bottom-left-radius: 12px;
-        border-bottom-right-radius: 12px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
     }
 
-    /* Button Styling */
-    .refresh-btn {
-        display: inline-block;
-        background-color: #28a745;
-        color: white;
-        padding: 15px 30px;
-        font-size: 18px;
-        font-weight: bold;
+    /* Action Bar */
+    .action-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+        background: #f4f4f4;
+        border-top: 2px solid #ccc;
+    }
+
+    .action-bar h3 {
+        font-size: 24px;
+        color: #333;
+        margin: 0;
+        font-weight: 500;
+    }
+
+    .action-bar button {
+        background: #00b953;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
         border: none;
-        border-radius: 25px;
+        padding: 15px 30px;
+        border-radius: 50px;
         cursor: pointer;
-        margin: 30px auto;
-        display: block;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
-    /* Button Hover Effect */
-    .refresh-btn:hover {
-        background-color: #218838;
-        transform: translateY(-3px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    .action-bar button:hover {
+        background: #1e9564;
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }
 
-    /* Responsiveness */
+    /* Mobile Responsiveness */
     @media (max-width: 768px) {
-        .container {
-            width: 95%;
-        }
-
         .header {
             font-size: 28px;
-            padding: 30px;
-        }
-
-        .refresh-btn {
-            font-size: 16px;
-            padding: 12px 25px;
+            padding: 20px;
         }
 
         .map-container {
             height: 400px;
         }
+
+        .action-bar h3 {
+            font-size: 20px;
+        }
+
+        .action-bar button {
+            font-size: 14px;
+            padding: 10px 20px;
+        }
     }
 </style>
 
-<!-- Main Container -->
+<!-- Main Content -->
 <div class="container">
-    <!-- Page Header -->
+    <!-- Header -->
     <div class="header">
         EV Charging Stations Map
     </div>
-    <!-- Map Container -->
+
+    <!-- Map Section -->
     <div class="map-container">
         <div id="map"></div>
+    </div>
+
+    <!-- Action Bar -->
+    <div class="action-bar">
+        <h3>Explore EV Charging Stations Around You</h3>
+        <button onclick="loadChargingStations()">Refresh Stations</button>
     </div>
 </div>
 
@@ -128,21 +138,22 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-    var map = L.map('map').setView([20, 0], 2); // Start with a zoomed-out global view
+    // Initialize the map
+    var map = L.map('map').setView([20, 0], 2);
 
-    // Load and display OpenStreetMap tiles
+    // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Function to load EV charging stations in the current map view
+    // Load Charging Stations
     async function loadChargingStations() {
         const bounds = map.getBounds();
         const southWest = bounds.getSouthWest();
         const northEast = bounds.getNorthEast();
 
-        // Query for charging stations in the current bounding box
+        // Overpass API Query
         const query = `
             [out:json];
             node["amenity"="charging_station"](${southWest.lat},${southWest.lng},${northEast.lat},${northEast.lng});
@@ -152,39 +163,32 @@
         const data = await response.json();
 
         // Remove existing markers
-        map.eachLayer(function(layer) {
-            if (layer instanceof L.Marker) {
-                map.removeLayer(layer);
-            }
+        map.eachLayer(layer => {
+            if (layer instanceof L.Marker) map.removeLayer(layer);
         });
 
-        // Add markers for each charging station
+        // Add markers for charging stations
         data.elements.forEach(station => {
-            const marker = L.marker([station.lat, station.lon]).addTo(map)
-                .bindPopup(`<strong>Charging Station</strong><br>Latitude: ${station.lat}, Longitude: ${station.lon}`);
+            L.marker([station.lat, station.lon])
+                .addTo(map)
+                .bindPopup(`<strong>EV Charging Station</strong><br>Lat: ${station.lat}, Lon: ${station.lon}`);
         });
     }
 
-    // Load EV charging stations initially
-    loadChargingStations();
-
-    // Load EV charging stations whenever the map is moved or zoomed
+    // Refresh charging stations after every map movement
     map.on('moveend', loadChargingStations);
 
-    // Geolocation to center the map on the user's location
-    function onLocationFound(e) {
-        map.setView(e.latlng, 13); // Zoom in to the user's location
-        L.marker(e.latlng).addTo(map).bindPopup("You are here").openPopup();
-    }
-
-    function onLocationError(e) {
-        alert(e.message);
-    }
-
-    map.on('locationfound', onLocationFound);
-    map.on('locationerror', onLocationError);
-
-    // Request the user's location
+    // Request user's location
     map.locate({ setView: true, maxZoom: 16 });
+
+    // Show user's location
+    map.on('locationfound', e => {
+        L.marker(e.latlng).addTo(map).bindPopup("You are here").openPopup();
+    });
+
+    // Handle location errors
+    map.on('locationerror', e => {
+        alert("Could not access your location. Please allow location access and try again.");
+    });
 </script>
 {% endblock %}

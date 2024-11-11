@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Green scrollbar styling - only for the vertical scrollbar on the right */
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #f3f3f3;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #28a745; /* Green color matching button */
+    border-radius: 6px;
+    border: 3px solid #f3f3f3;
+}
+
+/*header {
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    border-bottom: 2px solid #000;
+    color: #333;
+    letter-spacing: 1px;
+}*/
+
+.articles {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns layout */
+    gap: 10px; /* Add some spacing between the articles */
+    width: 100%; /* Reduce the width to allow centering */
+    height: auto; /* Adjust height to fit the content */
+    margin: 40px auto; /* Center horizontally and add vertical spacing */
+    justify-content: center; /* Center items horizontally within the grid */
+    align-items: center; /* Center items vertically within the grid */
+}
+
+
+.article {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.article:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%; /* Adjusted width to keep text on the left */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    justify-content: center;
+    padding: 20px;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.overlay p {
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: left; /* Align text to the left */
+    line-height: 1.4;
+}
+
+.overlay button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.overlay button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}

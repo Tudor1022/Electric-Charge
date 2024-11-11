@@ -4,55 +4,60 @@
 
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/forum.css') }}">
-<div class="forum-container">
-    <h1>Welcome to the Forum, {{ user.username }}!</h1>
+<div class="forum-wrapper">
+    <div class="forum-header">
+        <h1>Bine ai venit in comunitate {{ user.username }}!</h1>
+        <p>Connect, share, and engage with the community.</p>
+    </div>
 
-    <form action="{{ url_for('forum') }}" method="POST" class="post-form">
-        <textarea name="content" placeholder="Write your post here..." ></textarea>
-        <br>
-        <button type="submit" class="post-button">Post</button>
-    </form>
+    <div class="post-section">
+        <form action="{{ url_for('forum') }}" method="POST" class="post-form">
+            <textarea name="content" placeholder="Scrie o postare..." required></textarea>
+            <button type="submit" class="btn primary">Post</button>
+        </form>
+    </div>
 
-    <h2>Forum Posts</h2>
-    <ul class="post-list">
-        {% for post in posts %}
-        <li class="post-card">
-            <div class="post-header">
-                <strong>{{ post.user.username }}</strong>
-                <small>Posted on {{ post.timestamp }}</small>
-            </div>
-            <p class="post-content">{{ post.content }}</p>
+    <div class="posts-container">
+        <h2>Postari</h2>
+        <ul class="post-list">
+            {% for post in posts %}
+            <li class="post-card">
+                <div class="post-header">
+                    <div>
+                        <strong>{{ post.user.username }}</strong>
+                        <span class="post-date">{{ post.timestamp }}</span>
+                    </div>
+                    {% if post.user.id == user.id %}
+                    <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" class="delete-post-form">
+                        <button type="submit" class="btn danger small">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+                <p class="post-content">{{ post.content }}</p>
 
-            <!-- Delete Button (Visible only to post owner) -->
-            {% if post.user.id == user.id %}
-            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" class="delete-post-form">
-                <button type="submit" class="delete-button">Delete Post</button>
-            </form>
-            {% endif %}
-
-            <h3 class="comment-header">Comments:</h3>
-            <ul class="comment-list">
-                {% for comment in post.comments %}
-                <li class="comment-card">
-                    <strong>{{ comment.user.username }}</strong>
-                    <small>{{ comment.timestamp }}</small><br>
-                    <p>{{ comment.content }}</p>
-                </li>
-                {% else %}
-                <li>No comments yet. Be the first to comment!</li>
-                {% endfor %}
-            </ul>
-
-            <form action="{{ url_for('comment', post_id=post.id) }}" method="POST" class="comment-form">
-                <textarea name="content" placeholder="Add a comment..." required></textarea>
-                <br>
-                <button type="submit" class="comment-button">Comment</button>
-            </form>
-        </li>
-        {% else %}
-        <li>No posts yet. Be the first to post!</li>
-        {% endfor %}
-    </ul>
-
+                <div class="comments-section">
+                    <h3>Comentarii</h3>
+                    <ul class="comment-list">
+                        {% for comment in post.comments %}
+                        <li class="comment-card">
+                            <strong>{{ comment.user.username }}</strong>
+                            <span class="comment-date">{{ comment.timestamp }}</span>
+                            <p>{{ comment.content }}</p>
+                        </li>
+                        {% else %}
+                        <li>Inca nu sunt comentarii. Adauga tu unul!</li>
+                        {% endfor %}
+                    </ul>
+                    <form action="{{ url_for('comment', post_id=post.id) }}" method="POST" class="comment-form">
+                        <textarea name="content" placeholder="Add a comment..." required></textarea>
+                        <button type="submit" class="btn secondary">Comment</button>
+                    </form>
+                </div>
+            </li>
+            {% else %}
+            <li class="empty-message">Inca nu sunt postari. Fii primul care posteaza!</li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endblock %}

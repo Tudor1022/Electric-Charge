@@ -1,168 +1,184 @@
-/* General Typography */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+/* General Settings */
 body {
     font-family: 'Poppins', sans-serif;
+    background-image: url("/static/images/bck.jpg");
+    margin: 0;
+    padding: 0;
+    color: #333;
     line-height: 1.6;
-    background-image: url("bck.jpg");
-    background-color: #4c4c46;
 }
 
-/* Forum Container */
-.forum-container {
-    width: 70%;
-    margin: 20px auto;
+.forum-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
     padding: 20px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border-radius: 10px;
+    background: linear-gradient(135deg, green, black); /* Gradient from green to black */
+    color: #fff; /* Optional: Ensure text is readable on the gradient */
 }
 
-/* Header */
-h1, h2 {
-    color: #2c3e50;
+
+
+/* Header Section */
+.forum-header {
     text-align: center;
+    margin-bottom: 30px;
+}
+.forum-header h1 {
+    color: #00B953;
+    font-size: 50px;
+    font-weight: 600;
+}
+.forum-header p {
+    color: white;
+    font-size: 20px;
 }
 
 /* Post Form */
-form.post-form {
+.post-section {
     margin-bottom: 30px;
 }
-
-form.post-form textarea {
-    width: 90%;
-    height: 100px;
+.post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.post-form textarea {
+    width: 100%;
+    max-width: 900px;
+    height: 120px;
     padding: 15px;
-    margin-bottom: 10px;
+    font-size: 16px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    font-size: 1.1em;
+    outline: none;
+    resize: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
-form.post-form .post-button {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    border: none;
+.post-form .btn {
+    padding: 12px 30px;
+    font-size: 16px;
     border-radius: 25px;
+    border: none;
     cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease-in-out;
+}
+.btn.primary {
+    background: #00B953;
+    color: white;
+}
+.btn.primary:hover {
+    background: #1e3c72;
+}
+.btn.secondary {
+    background: #333;
+    font-size: 13px;
+    color: white;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.btn.secondary:hover {
+    background: #00B953;
+}
+.btn.danger {
+    background: #e74c3c;
+    color: white;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.btn.danger:hover {
+    background: #c0392b;
+}
+.btn.small {
+    padding: 5px 15px;
+    font-size: 14px;
 }
 
-form.post-form .post-button:hover {
-    background-color: #1a252f;
+/* Posts Section */
+.posts-container h2 {
+    text-align: center;
+    color: #00B953;
+    font-size: 28px;
+    margin-bottom: 20px;
 }
-
-/* Forum Post and Comment Cards */
-ul.post-list {
-    list-style-type: none;
-    padding-left: 0;
+.post-list {
+    list-style: none;
+    padding: 0;
 }
-
-li.post-card {
-    background-color: #f8f8f8;
-    margin-bottom: 30px;
+.post-card {
+    background: #f9f9f9;
+    margin-bottom: 20px;
+    border-radius: 12px;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .post-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
 }
-
 .post-header strong {
-    color: #2c3e50;
-    font-size: 1.2em;
+    font-size: 18px;
+    color: #00B953;
 }
-
-.post-header small {
-    color: #7f8c8d;
+.post-header .post-date {
+    font-size: 14px;
+    color: #333;
 }
-
 .post-content {
-    font-size: 1.2em;
-    margin-top: 10px;
-}
-
-/* Delete Button */
-form.delete-post-form {
-    margin-top: 10px;
-    text-align: right;
-}
-
-form.delete-post-form .delete-button {
-    background-color: #331017;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
-}
-
-form.delete-post-form .delete-button:hover {
-    background-color: #c0392b;
+    font-size: 16px;
+    color: #555;
 }
 
 /* Comments Section */
-.comment-header {
+.comments-section {
     margin-top: 20px;
-    font-size: 1.1em;
-    color: #2c3e50;
 }
-
-ul.comment-list {
-    list-style-type: none;
-    padding-left: 0;
+.comments-section h3 {
+    font-size: 18px;
+    color: #00B953;
+    margin-bottom: 10px;
 }
-
-li.comment-card {
-    background-color: #e9ecef;
-    margin-top: 10px;
-    padding: 15px;
-    border-radius: 10px;
+.comment-list {
+    list-style: none;
+    padding: 0;
 }
-
-.comment-card strong {
-    font-size: 1.1em;
-    color: #2c3e50;
-}
-
-.comment-card small {
-    font-size: 0.85em;
-    color: #7f8c8d;
-}
-
-.comment-card p {
-    font-size: 1em;
-    margin-top: 10px;
-}
-
-/* Comment Form */
-form.comment-form textarea {
-    width: 100%;
-    height: 80px;
+.comment-card {
+    background: #e9ecef;
     padding: 10px;
-    margin-top: 10px;
-    border-radius: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.comment-card strong {
+    color: #333;
+    font-size: 16px;
+}
+.comment-card .comment-date {
+    color: #888;
+    font-size: 12px;
+    margin-left: 5px;
+}
+.comment-form {
+    margin-top: 15px;
+}
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
     border: 1px solid #ccc;
-    font-size: 1em;
+    outline: none;
+    font-size: 14px;
+    resize: none;
 }
-
-form.comment-form .comment-button {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.comment-form .btn {
     margin-top: 10px;
 }
-
-form.comment-form .comment-button:hover {
-

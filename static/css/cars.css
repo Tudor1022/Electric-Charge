@@ -13,6 +13,11 @@ h1 {
     color: #00B953;
 }
 
+.form-control{
+background: #00B953;
+color: white;
+}
+
 .select-container {
     display: flex;
     justify-content: space-between; /* Space between select elements */

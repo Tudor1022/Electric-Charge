@@ -11,12 +11,23 @@
     <div class="login-container">
         <div class="login-card">
             <h1>Login</h1>
+            <!-- Flash message display -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-message">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
             <form method="POST">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" required>
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" required>
                 <button type="submit">Login</button>
+                <a href="{{ url_for('forgot_password') }}">Forgot your password?</a>
             </form>
             <a href="{{ url_for('signup') }}">Don't have an account? Sign up here</a>
         </div>
