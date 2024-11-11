@@ -1,7 +1,6 @@
 import hashlib
 import os
 from doctest import debug
-
 from flask import Flask, render_template, redirect, url_for, flash, request, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -24,8 +23,9 @@ db = SQLAlchemy(app)
 
 def generate_response(user_prompt):
     try:
-        completion = openai.chat.completions.create(
-            model="gpt-4-turbo",
+        # Correct way to call the ChatCompletion API
+        completion = openai.ChatCompletion.create(
+            model="gpt-4-turbo",  # Use the correct model name
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
@@ -33,11 +33,12 @@ def generate_response(user_prompt):
             temperature=0.7,
             max_tokens=256,
         )
-        response = completion.choices[0].message.content
+        response = completion['choices'][0]['message']['content']
         return response
     except Exception as e:
         print(f"API Error: {e}")
         return "Sorry, I am having trouble responding right now."
+
 
 class ElectricCar(db.Model):
     __tablename__ = 'electric_cars'
@@ -319,5 +320,5 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         add_new_cars()# Populează baza de date doar dacă este necesar
-        app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080), debug=True))
+        app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 
