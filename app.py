@@ -316,5 +316,5 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         add_new_cars()# Populează baza de date doar dacă este necesar
-        app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000), debug=True))
+        app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080), debug=True))
 
