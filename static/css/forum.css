@@ -1,0 +1,168 @@
+/* General Typography */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background-image: url("bck.jpg");
+    background-color: #4c4c46;
+}
+
+/* Forum Container */
+.forum-container {
+    width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+/* Header */
+h1, h2 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* Post Form */
+form.post-form {
+    margin-bottom: 30px;
+}
+
+form.post-form textarea {
+    width: 90%;
+    height: 100px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1.1em;
+}
+
+form.post-form .post-button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+form.post-form .post-button:hover {
+    background-color: #1a252f;
+}
+
+/* Forum Post and Comment Cards */
+ul.post-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li.post-card {
+    background-color: #f8f8f8;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.post-header strong {
+    color: #2c3e50;
+    font-size: 1.2em;
+}
+
+.post-header small {
+    color: #7f8c8d;
+}
+
+.post-content {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+/* Delete Button */
+form.delete-post-form {
+    margin-top: 10px;
+    text-align: right;
+}
+
+form.delete-post-form .delete-button {
+    background-color: #331017;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+form.delete-post-form .delete-button:hover {
+    background-color: #c0392b;
+}
+
+/* Comments Section */
+.comment-header {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #2c3e50;
+}
+
+ul.comment-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li.comment-card {
+    background-color: #e9ecef;
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.comment-card strong {
+    font-size: 1.1em;
+    color: #2c3e50;
+}
+
+.comment-card small {
+    font-size: 0.85em;
+    color: #7f8c8d;
+}
+
+.comment-card p {
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+/* Comment Form */
+form.comment-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+form.comment-form .comment-button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+form.comment-form .comment-button:hover {
+

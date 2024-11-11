@@ -1,0 +1,25 @@
+{% extends 'navFooterBase.html' %}
+
+{% block title %}Create Topic{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create_topic.css') }}">
+
+<div class="create-topic-container">
+    <h1>Create a New Topic</h1>
+
+    <form action="{{ url_for('create_topic') }}" method="POST" class="create-topic-form">
+        <div class="form-group">
+            <label for="title">Topic Title</label>
+            <input type="text" name="title" id="title" placeholder="Enter your topic title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description (optional)</label>
+            <textarea name="description" id="description" placeholder="Add a short description..."></textarea>
+        </div>
+
+        <button type="submit" class="create-topic-button">Create Topic</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'navFooterBase.html' %}
+
+{% block title %}Forum{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forum.css') }}">
+<div class="forum-container">
+    <h1>Welcome to the Forum, {{ user.username }}!</h1>
+
+    <form action="{{ url_for('forum') }}" method="POST" class="post-form">
+        <textarea name="content" placeholder="Write your post here..." ></textarea>
+        <br>
+        <button type="submit" class="post-button">Post</button>
+    </form>
+
+    <h2>Forum Posts</h2>
+    <ul class="post-list">
+        {% for post in posts %}
+        <li class="post-card">
+            <div class="post-header">
+                <strong>{{ post.user.username }}</strong>
+                <small>Posted on {{ post.timestamp }}</small>
+            </div>
+            <p class="post-content">{{ post.content }}</p>
+
+            <!-- Delete Button (Visible only to post owner) -->
+            {% if post.user.id == user.id %}
+            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" class="delete-post-form">
+                <button type="submit" class="delete-button">Delete Post</button>
+            </form>
+            {% endif %}
+
+            <h3 class="comment-header">Comments:</h3>
+            <ul class="comment-list">
+                {% for comment in post.comments %}
+                <li class="comment-card">
+                    <strong>{{ comment.user.username }}</strong>
+                    <small>{{ comment.timestamp }}</small><br>
+                    <p>{{ comment.content }}</p>
+                </li>
+                {% else %}
+                <li>No comments yet. Be the first to comment!</li>
+                {% endfor %}
+            </ul>
+
+            <form action="{{ url_for('comment', post_id=post.id) }}" method="POST" class="comment-form">
+                <textarea name="content" placeholder="Add a comment..." required></textarea>
+                <br>
+                <button type="submit" class="comment-button">Comment</button>
+            </form>
+        </li>
+        {% else %}
+        <li>No posts yet. Be the first to post!</li>
+        {% endfor %}
+    </ul>
+
+</div>
+{% endblock %}

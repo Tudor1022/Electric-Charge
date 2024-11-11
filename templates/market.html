@@ -1,0 +1,35 @@
+{% extends 'navFooterBase.html' %}
+
+{% block title %}Electric Car Parts{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/market.css') }}">
+<h1>Electric Car Parts</h1>
+<div class="product-container">
+    <div class="product-card">
+        <img src="https://via.placeholder.com/150" alt="Electric Motor">
+        <h2>Electric Motor</h2>
+        <p>Price: $1200</p>
+        <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+        <img src="https://souqeshop.ro/wp-content/uploads/2021/06/FFM_9115-copy.jpg" alt="Battery Pack">
+        <h2>Battery Pack</h2>
+        <p>Price: $800</p>
+        <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+        <img src="https://via.placeholder.com/150" alt="Charging Station">
+        <h2>Charging Station</h2>
+        <p>Price: $300</p>
+        <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+        <img src="https://via.placeholder.com/150" alt="Regenerative Braking System">
+        <h2>Regenerative Braking System</h2>
+        <p>Price: $450</p>
+        <button>Add to Cart</button>
+    </div>
+    <!-- Add more product cards as needed -->
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'navFooterBase.html' %}
+
+{% block title %}
+AI Chatbot
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+
+<div class="chat-container">
+    <h2>Chat with our AI</h2>
+
+    <div class="chat-content">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-section">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <div class="chatbot-image">
+        <img src="{{ url_for('static', filename='images/robo.png') }}" alt="Chatbot">
+        <img src="{{ url_for('static', filename='images/logMare.png') }}" alt="Electric Charge Logo" class="charge-logo">
+    </div>
+</div>
+
+
+<script>
+    function sendMessage() {
+        const userInput = document.getElementById('user-input').value;
+        const chatBox = document.getElementById('chat-box');
+
+        if (userInput) {
+            // Display user's message in the chat box
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('message', 'user-message');
+            userMessage.textContent = userInput;
+            chatBox.appendChild(userMessage);
+
+            // Send message to the server
+            fetch('/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const aiMessage = document.createElement('div');
+                aiMessage.classList.add('message', 'ai-message');
+                aiMessage.textContent = data.response;
+                chatBox.appendChild(aiMessage);
+            });
+
+            // Clear input field
+            document.getElementById('user-input').value = '';
+        }
+    }
+</script>
+{% endblock %}

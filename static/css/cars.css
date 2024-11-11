@@ -1,0 +1,64 @@
+/* styles.css */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 10px;
+}
+
+h1 {
+    text-align: center;
+    color: #00B953;
+}
+
+.select-container {
+    display: flex;
+    justify-content: space-between; /* Space between select elements */
+    margin: 0 15%; /* Margin on the sides for overall spacing */
+}
+
+#car1-select,
+#car2-select {
+    font-size: 20px;
+    width: 48%; /* Width to make them fit well together */
+}
+
+.car-comparison {
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    margin-top: 20px;
+}
+
+.car-details {
+    width: 45%;
+    padding: 15px;
+    border-radius: 0;
+    text-align: center;
+    background-color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+    height: 550px;
+    color: #00B953;
+}
+
+.car-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+select {
+    margin-bottom: 20px;
+}
+
+.option-text {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}

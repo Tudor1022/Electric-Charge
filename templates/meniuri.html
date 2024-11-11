@@ -1,0 +1,20 @@
+{% extends 'navFooterBase.html' %}
+{% block title %}Electric charge{% endblock %}
+
+
+    {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/meniuri.css') }}">
+    <div class="main-section-odd">
+        <h1>{{ heading1 }}</h1>
+
+        <a href="{{ url_for(button1) }}"><button>Intră</button></a>
+    </div>
+    <div class="main-section">
+        <h1>{{ heading2 }}</h1>
+        <a href="{{ url_for(button2) }}"><button>Intră</button></a>
+    </div>
+    <div class="main-section-odd">
+        <h1>{{ heading3 }}</h1>
+        <a href="{{ url_for(button3) }}"><button>Intră</button></a>
+    </div>
+    {% endblock %}

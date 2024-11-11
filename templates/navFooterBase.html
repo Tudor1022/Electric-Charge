@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/images/logo.ico">
+    <title>Electric Charge</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+        .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px; /* Adds padding around the content inside the container */
+    box-sizing: border-box;
+
+}
+        body {
+font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            background-image: url('static/images/bck.jpg');
+
+        }
+        header {
+            background-color: #D9D9D9;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        }
+        header img {
+            height: 40px;
+            margin-left: 10px;
+        }
+        nav {
+        font-family: 'Poppins', sans-serif;
+            display: flex;
+            gap: 20px;
+            margin-right: 10px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #1E1E1E;
+            color: #D9D9D9;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer div {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        footer a {
+            color: #D9D9D9;
+            text-decoration: none;
+        }
+
+        footer input[type="email"] {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/logoMare.png') }}" alt="Logo">
+        <nav>
+            <a href="{{ url_for('home') }}">HOME</a>
+            <a href="{{ url_for('forumMenu') }}">FORUM</a>
+            <a href="{{ url_for('marketMenu') }}">MARKETPLACE</a>
+            <a href="{{ url_for('map') }}">CHARGE MAP</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        {% block content %}
+        <!-- Content will be inserted here -->
+        {% endblock %}
+    </div>
+
+    <footer>
+        <div>
+        <img src="{{ url_for('static', filename='images/logoMare.png') }}" alt="Image Description" style="height: 50px;">
+    </div>
+    <div>
+        <h3>SUPPORT</h3>
+        <a href="#">Tutoriale DIY</a>
+        <a href="#">Forum de suport</a>
+    </div>
+    <div>
+        <h3>INTRETINERE</h3>
+        <a href="#">Ghiduri intretinere</a>
+        <a href="#">Servicii de intretinere</a>
+    </div>
+    <div>
+        <h3>CONTACT</h3>
+        <a href="mailto:contact@electriccharge.com">contact@electriccharge.com</a>
+        <a href="tel:+40312345678">+40 (31) 234 5678</a>
+    </div>
+    <div>
+        <h3>SUBSCRIBE TO OUR NEWSLETTER</h3>
+        <form>
+            <input type="email" placeholder="Email">
+        </form>
+    </div>
+
+</footer>
+
+</body>
+</html>
