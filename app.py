@@ -10,7 +10,7 @@ import openai
 
 base_url = "https://api.aimlapi.com/v1"
 api_key = "f45d2cc26b2e44428f9f14b0336bd7e0"
-system_prompt = "simple conversation"
+system_prompt = "simple conversation about everything on electric cars topic"
 
 openai.api_key = api_key
 openai.api_base = base_url
