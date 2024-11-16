@@ -1,14 +1,16 @@
 import hashlib
-from flask import Flask, render_template, redirect, url_for, flash, request, session
+from flask import Flask, render_template, redirect, url_for, flash, request, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from flask import Flask, request, jsonify
-from openai import OpenAI
+import openai  # Correct import
 
-base_url = "https://api.aimlapi.com/v1"
+# Set your OpenAI API details
 api_key = "f45d2cc26b2e44428f9f14b0336bd7e0"
+base_url = "https://api.aimlapi.com/v1"  # Optional, only if using a custom endpoint
 system_prompt = "simple conversation"
-openai_api = OpenAI(api_key=api_key, base_url=base_url)
+
+openai.api_key = api_key
+openai.api_base = base_url  # Only include this if you're using a custom API endpoint
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -17,7 +19,7 @@ db = SQLAlchemy(app)
 
 def generate_response(user_prompt):
     try:
-        completion = openai_api.chat.completions.create(
+        completion = openai.ChatCompletion.create(
             model="gpt-4-turbo",
             messages=[
                 {"role": "system", "content": system_prompt},
@@ -205,7 +207,7 @@ def guide():
 
 @app.route('/news')
 def news():
-    return "news page"
+    return render_template("stiri.html")
 
 @app.route('/map')
 def map():
@@ -231,13 +233,13 @@ def chat():
 @app.route('/forumMenu')
 def forumMenu():
     return render_template("meniuri.html", heading1='COMUNITATE\nENTUZIAȘTI EV', heading2='ȘTIRI \n ȘI ACTUALIZĂRI', heading3='CHATBOT \n SUPPORT', button1='forum',
-                           button2='news', button3='chat')
+                           button2='news', button3='chat', image_url1="/static/images/forum.png", image_url2="/static/images/benNews.jpg", image_url3="/static/images/chatBot.jpeg")
 
 @app.route('/marketMenu')
 def marketMenu():
     return render_template("meniuri.html", heading1='COMPARĂ \n MAȘINI EV', heading2='GĂSEȘTE \n PIESE',
                            heading3='RECENZII \n SPECIALIȘTI', button1='cars',
-                           button2='market', button3='chat')
+                           button2='market', button3='chat',image_url1="/static/images/comp.png", image_url2="/static/images/magazin.png", image_url3="/static/images/rec.png")
 
 @app.route('/forum', methods=['GET', 'POST'])
 def forum():
