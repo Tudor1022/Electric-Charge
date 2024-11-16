@@ -1,8 +1,16 @@
 import hashlib
+from sqlite3 import IntegrityError
+
 from flask import Flask, render_template, redirect, url_for, flash, request, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import openai  # Correct import
+import random
+import string
+from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
+
+from emailSender import send_email
 
 # Set your OpenAI API details
 api_key = "f45d2cc26b2e44428f9f14b0336bd7e0"
@@ -34,6 +42,10 @@ def generate_response(user_prompt):
         print(f"API Error: {e}")
         return "Sorry, I am having trouble responding right now."
 
+def generate_random_password(length=10):
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for i in range(length))
+
 class ElectricCar(db.Model):
     __tablename__ = 'electric_cars'
 
@@ -58,6 +70,7 @@ class Produse(db.Model):
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)  # Add email column
     password = db.Column(db.String(150), nullable=False)
 
 class Post(db.Model):
@@ -168,18 +181,27 @@ def home():
 def signup():
     if request.method == 'POST':
         username = request.form.get('username')
+        email = request.form.get('email')  # Fetch the email field
         password = request.form.get('password')
 
-        # Check if user already exists
-        if User.query.filter_by(username=username).first():
-            flash('User exists')
-        else:
-            hashed_password = hash_password(password)
-            new_user = User(username=username, password=hashed_password)
+        if not username or not email or not password:
+            flash("All fields are required!")
+            return redirect(url_for('signup'))
+
+        # Hash the password
+        hashed_password = generate_password_hash(password)
+
+        # Add user to the database
+        new_user = User(username=username, email=email, password=hashed_password)
+        try:
             db.session.add(new_user)
             db.session.commit()
-            session['user_id'] = new_user.id
-            return redirect(url_for('home'))
+            flash("Account created successfully! Please log in.")
+            return redirect(url_for('login'))
+        except IntegrityError:
+            db.session.rollback()
+            flash("This email is already registered.")
+            return redirect(url_for('signup'))
     return render_template('signup.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -189,12 +211,40 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(username=username).first()
-        if user and check_password(user.password, password):
+        if user and check_password_hash(user.password, password):  # Use werkzeug's check_password_hash
             session['user_id'] = user.id
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password')
     return render_template('login.html')
+
+
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+
+        # Check if email exists in the database
+        user = User.query.filter_by(email=email).first()
+        if user:
+            # Generate a new password
+            new_password = generate_random_password()
+            hashed_password = hash_password(new_password)
+
+            # Update user's password in the database
+            user.password = hashed_password
+            db.session.commit()
+
+            # Send the new password to the user's email
+            send_email(email, new_password)  # Define the send_email function below
+
+            flash("A new password has been sent to your email.")
+            return redirect(url_for('login'))
+        else:
+            flash("No account found with this email.")
+
+    return render_template('forgotPassword.html')
 
 @app.route('/logout')
 def logout():

@@ -15,8 +15,7 @@
     }
     body {
         font-family: 'Roboto', sans-serif;
-        background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Professional gradient background */
-        color: #f4f4f4;
+        background-image:url("/static/images/bck.jpg"); /* Professional gradient background */
         line-height: 1.6;
     }
 
@@ -29,6 +28,7 @@
         border-radius: 15px;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         overflow: hidden;
+        color: green;
     }
 
     /* Header */
@@ -42,6 +42,7 @@
         text-transform: uppercase;
         letter-spacing: 1.8px;
         border-bottom: 6px solid #00b953;
+
     }
 
     /* Map Area */
@@ -119,7 +120,7 @@
 <div class="container">
     <!-- Header -->
     <div class="header">
-        EV Charging Stations Map
+        Harta statii de incarcare
     </div>
 
     <!-- Map Section -->
@@ -129,7 +130,7 @@
 
     <!-- Action Bar -->
     <div class="action-bar">
-        <h3>Explore EV Charging Stations Around You</h3>
+        <h3>Cauta statii de incarcare in jurul tau</h3>
         <button onclick="loadChargingStations()">Refresh Stations</button>
     </div>
 </div>

@@ -1,36 +1,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #00B953; /* Light background */
+    background-color: #f3f3f3; /* Softer background to reduce strain */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .container {
-    width: 80%;
-    background-color: #00B953; /* White background for the container */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    width: 90%;
+    max-width: 1200px;
+    background-color: white; /* Contrasting white background for the container */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Elevated box shadow for depth */
+    border-radius: 12px;
+    overflow: hidden; /* Ensures no child elements overflow the rounded corners */
     text-align: center;
+    margin: 20px auto; /* Ensures the container is spaced */
 }
 
 .header {
-    background-color: #1e9564; /* Dark gray background */
+    background-color: #1e9564; /* A softer green for the header */
     padding: 20px;
-    font-size: 24px;
-    color: white; /* White text */
-    border-radius: 8px 8px 0 0;
+    font-size: 28px;
+    font-weight: bold;
+    color: white; /* White text for readability */
+    text-transform: uppercase;
+    border-bottom: 3px solid #00b953; /* Slight accent line for style */
 }
 
 .map-container {
-    height: 500px; /* Adjust height as needed */
+    height: 450px; /* Adjusted for better proportional height */
     position: relative;
-    background-color: #00B953;
+    background-color: #e0e0e0; /* Subtle gray for loading background */
 }
 
 #map {
     width: 100%;
     height: 100%;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    display: block;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header {
+        font-size: 24px;
+        padding: 15px;
+    }
+
+    .map-container {
+        height: 300px; /* Reduce height on smaller screens */
+    }
+
+    .container {
+        width: 95%; /* Full width on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    .map-container {
+        height: 250px; /* Further reduce height for mobile */
+    }
 }

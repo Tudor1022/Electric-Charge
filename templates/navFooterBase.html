@@ -89,7 +89,8 @@ body::-webkit-scrollbar-thumb {
 </head>
 <body>
     <header>
-        <img src="{{ url_for('static', filename='images/logoMare.png') }}" alt="Logo">
+        <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/logoMare.png') }}" alt="Logo"></a>
+
         <nav>
             <a href="{{ url_for('home') }}">HOME</a>
             <a href="{{ url_for('forumMenu') }}">FORUM</a>

@@ -1,4 +1,4 @@
-/* styles.css */
+/* Base Styles */
 body {
     background-color: #f8f9fa;
     font-family: Arial, sans-serif;
@@ -13,9 +13,9 @@ h1 {
     color: #00B953;
 }
 
-.form-control{
-background: #00B953;
-color: white;
+.form-control {
+    background: #00B953;
+    color: white;
 }
 
 .select-container {
@@ -35,17 +35,18 @@ color: white;
     justify-content: space-around;
     align-items: start;
     margin-top: 20px;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .car-details {
     width: 45%;
     padding: 15px;
-    border-radius: 0;
     text-align: center;
     background-color: #333;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 550px;
     color: #00B953;
+    margin-bottom: 20px; /* Add spacing between stacked elements */
 }
 
 .car-image {
@@ -66,4 +67,58 @@ select {
 .button-container {
     text-align: center;
     margin: 20px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .select-container {
+        margin: 0 10%; /* Reduce side margins for smaller screens */
+    }
+
+    #car1-select,
+    #car2-select {
+        font-size: 18px;
+        width: 48%; /* Maintain proportion on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .select-container {
+        flex-direction: column; /* Stack selects vertically */
+        align-items: center;
+    }
+
+    #car1-select,
+    #car2-select {
+        width: 90%; /* Full width on smaller screens */
+        margin-bottom: 10px; /* Add spacing between stacked selects */
+    }
+
+    .car-comparison {
+        flex-direction: column; /* Stack car details vertically */
+    }
+
+    .car-details {
+        width: 90%; /* Full width for smaller screens */
+        height: auto; /* Allow dynamic height for better layout */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem; /* Smaller font size for smaller screens */
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    #car1-select,
+    #car2-select {
+        font-size: 16px; /* Adjust select font size for readability */
+    }
+
+    .button-container {
+        margin: 15px 0;
+    }
 }

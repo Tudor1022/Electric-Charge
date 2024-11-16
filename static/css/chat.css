@@ -1,3 +1,4 @@
+/* Chat Container */
 .chat-container {
     display: flex;
     justify-content: space-between;
@@ -5,26 +6,28 @@
     width: 80%;
     margin: 50px auto;
     padding: 30px;
-    background-color: #ffffff;
-    border: 0px solid #ddd;
+    background: linear-gradient(135deg, green, black); /* Gradient from green to black */
+    color: white;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(135deg, green, black); /* Gradient from green to black */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+/* Chat Content */
+.chat-content h2 {
     color: white;
 }
 
-.chat-content h2{
-    color:white;
-}
-
 .chat-content {
-    width: 65%; /* Adjust width of the chat section */
+    width: 65%; /* Adjust width for larger screens */
     margin-right: 20px;
     display: flex;
     flex-direction: column;
-    color:white;
+    color: white;
+    flex-grow: 1; /* Allow flexible resizing */
 }
 
+/* Chat Box */
 .chat-box {
     height: 500px;
     overflow-y: auto;
@@ -38,6 +41,7 @@
     font-size: 14px;
 }
 
+/* Scrollbar Styling */
 .chat-box::-webkit-scrollbar {
     width: 8px;
 }
@@ -47,10 +51,12 @@
     border-radius: 10px;
 }
 
+/* Input Section */
 .input-section {
     display: flex;
     gap: 10px;
     align-items: center;
+    flex-wrap: wrap; /* Allow input and button to wrap */
 }
 
 .input-section input {
@@ -62,6 +68,7 @@
     font-size: 14px;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
+    min-width: 200px; /* Minimum width to prevent shrinking too much */
 }
 
 .input-section input:focus {
@@ -88,24 +95,26 @@
     background-color: #166c4b;
 }
 
+/* Chatbot Image */
 .chatbot-image {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
-    width: 30%;
+    width: 30%; /* Adjust width for larger screens */
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 .chatbot-image img {
-    width: 200px; /* Increase the width of the images */
-    height: auto; /* Maintain the aspect ratio */
+    width: 200px;
+    height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 50%;
+    margin-top: 20px; /* Reduced margin for better alignment */
 }
 
-
+/* Messages */
 .chat-box .message {
     margin-bottom: 15px;
     padding: 12px 15px;
@@ -127,4 +136,72 @@
     color: #37474f;
     text-align: left;
     align-self: flex-start;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .chat-container {
+        flex-direction: column;
+        width: 90%; /* Expand width on smaller screens */
+        padding: 20px;
+    }
+
+    .chat-content {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .chatbot-image {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .chatbot-image img {
+        width: 150px; /* Adjust image size */
+    }
+
+    .input-section {
+        flex-wrap: wrap;
+    }
+
+    .input-section button {
+        width: 100%; /* Full width for buttons */
+    }
+}
+
+@media (max-width: 768px) {
+    .chat-box {
+        height: 400px; /* Adjust height for smaller screens */
+        font-size: 13px;
+    }
+
+    .chatbot-image img {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-container {
+        padding: 15px;
+    }
+
+    .chat-box {
+        height: 300px;
+        padding: 15px;
+        font-size: 12px;
+    }
+
+    .chatbot-image img {
+        width: 100px;
+    }
+
+    .input-section input {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .input-section button {
+        font-size: 14px;
+        height: 40px;
+    }
 }

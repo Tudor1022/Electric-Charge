@@ -16,11 +16,9 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     padding: 20px;
-    background: linear-gradient(135deg, green, black); /* Gradient from green to black */
-    color: #fff; /* Optional: Ensure text is readable on the gradient */
+    background: linear-gradient(135deg, green, black);
+    color: #fff;
 }
-
-
 
 /* Header Section */
 .forum-header {
@@ -181,4 +179,75 @@ body {
 }
 .comment-form .btn {
     margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .forum-wrapper {
+        padding: 15px;
+    }
+    .forum-header h1 {
+        font-size: 40px;
+    }
+    .forum-header p {
+        font-size: 18px;
+    }
+    .post-form textarea {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .forum-wrapper {
+        padding: 10px;
+    }
+    .forum-header h1 {
+        font-size: 35px;
+    }
+    .forum-header p {
+        font-size: 16px;
+    }
+    .post-form textarea {
+        height: 100px;
+    }
+    .btn {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .forum-wrapper {
+        width: 95%;
+        padding: 5px;
+    }
+    .forum-header h1 {
+        font-size: 28px;
+    }
+    .forum-header p {
+        font-size: 14px;
+    }
+    .post-form textarea {
+        font-size: 14px;
+        height: 80px;
+    }
+    .btn {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+    .post-header strong {
+        font-size: 16px;
+    }
+    .post-content {
+        font-size: 14px;
+    }
+    .comments-section h3 {
+        font-size: 16px;
+    }
+    .comment-card strong {
+        font-size: 14px;
+    }
+    .comment-card .comment-date {
+        font-size: 10px;
+    }
 }
