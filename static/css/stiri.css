@@ -99,3 +99,7 @@ body::-webkit-scrollbar-thumb {
     background-color: #218838;
     transform: translateY(-2px);
 }
+
+.titlu-main{
+text-align: center;
+}
