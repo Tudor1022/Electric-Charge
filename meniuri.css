@@ -1,0 +1,74 @@
+.main-section, .main-section-odd {
+    position: relative;
+    background-color: #A7A7A7;
+    padding: 50px 20px;
+    text-align: left;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    z-index: 1; /* Ensures the content stays above the overlay */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Prevents content from spilling */
+    border-radius: 8px; /* Adds a subtle rounded border */
+}
+
+.main-section:hover, .main-section-odd:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Styling */
+.main-section button, .main-section-odd button {
+    font-family: 'Poppins', sans-serif;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    margin-top: 20px; /* Improved spacing for smaller screens */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.main-section button:hover, .main-section-odd button:hover {
+    transform: translateY(-2px);
+    background-color: #00B953;
+}
+
+/* Overlay pseudo-elements */
+.main-section::before, .main-section-odd::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    z-index: -1; /* Places the overlay behind the content */
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .main-section, .main-section-odd {
+        padding: 30px 15px; /* Reduce padding for smaller screens */
+        text-align: center; /* Center-align text on smaller screens */
+    }
+
+    .main-section button, .main-section-odd button {
+        font-size: 14px; /* Reduce font size */
+        padding: 8px 15px; /* Adjust padding for smaller buttons */
+        margin: 15px 0 0 0; /* Center-align margin on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-section, .main-section-odd {
+        padding: 20px 10px; /* Further reduce padding for very small screens */
+    }
+
+    .main-section button, .main-section-odd button {
+        font-size: 12px; /* Smallest size for very compact devices */
+        padding: 6px 10px; /* Minimal padding */
+    }
+}

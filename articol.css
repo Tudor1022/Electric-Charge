@@ -1,0 +1,133 @@
+/* General Styles */
+body {
+     /* Elegant serif font for a more sophisticated look */
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1; /* Light background for subtle elegance */
+    color: #333;
+    line-height: 1.8;
+}
+
+.header1 {
+    background-color: #2e7d32;
+    color: white;
+    padding: 20px;
+    text-align: center; /* This centers the header text */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.header1 h1 {
+    font-size: 2.5em;
+    margin: 0;
+    text-align: center; /* Ensure h1 is centered */
+    width: 100%; /* Make sure it occupies the full width */
+}
+
+/* Article Section */
+.article-content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); /* Softer, larger shadow for depth */
+    transition: transform 0.3s ease-out;
+}
+
+.article-content:hover {
+    transform: translateY(-10px); /* Subtle lift effect on hover */
+}
+
+.image-container {
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease;
+}
+
+.image-container img:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+    opacity: 0.9;
+}
+
+/* Content Text */
+.text-container {
+    font-size: 1.2em; /* Increase font size for better readability */
+    color: #444; /* Softer dark color for the text */
+    line-height: 1.8;
+    text-align: justify;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+/* Paragraph Styling */
+.text-container p {
+    margin-bottom: 20px;
+    text-align: justify;
+    text-indent: 30px; /* Indentation at the beginning of paragraphs */
+    color: #333;
+    font-size: 1.2em;
+    font-weight: 400; /* Normal weight for body text */
+    letter-spacing: 0.5px; /* Small letter spacing for readability */
+    transition: color 0.3s ease;
+}
+
+.text-container p:first-child {
+    margin-top: 0; /* Remove top margin for the first paragraph */
+}
+
+/* Adding blockquote style for quoted content */
+blockquote {
+    border-left: 5px solid #3e8e41;
+    padding-left: 20px;
+    margin-left: 0;
+    font-style: italic;
+    color: #555;
+    font-size: 1.3em;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+}
+
+blockquote p {
+    margin: 0;
+}
+
+/* Links Styling */
+a {
+    color: #3e8e41; /* Matching green for links */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover {
+    color: #2c6e2f; /* Slightly darker green on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5em;
+    }
+
+    .article-content {
+        padding: 30px;
+    }
+
+    .text-container p {
+        font-size: 1.1em; /* Slightly smaller font size on mobile */
+    }
+}

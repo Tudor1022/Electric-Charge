@@ -1,0 +1,52 @@
+{% extends 'navFooterBase.html' %}
+
+{% block title %}
+Gaseste Piese - Home
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/market.css') }}">
+<header class="header">
+    <div class="banner">
+        <div class="overlay"></div>
+        <h1>GASESTE <span>PIESE</span></h1>
+    </div>
+</header>
+
+
+
+<section class="search-bar">
+    <a href="{{ url_for('search') }}"><h2>CAUTA PIESE</h2></a>
+    <form class="search-container" action="{{ url_for('search') }}" method="get">
+        <input
+            type="text"
+            name="query"
+            placeholder="Caută piesele aici..."
+            value="{{ query|default('') }}">
+        <button class="search-button" type="submit">🔍</button>
+    </form>
+</section>
+
+
+<section class="product-grid">
+    {% if products %}
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.price }} RON</p>
+            <a href="{{ product.product_url }}" class="view-link">Verifica stoc</a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-results">Niciun produs găsit pentru căutarea: "{{ query }}", poti intra pe site-ul partenerilor <a
+                href="https://amprevolt.com/"> amprevolt.com </a> pentru mai multe optiuni</p>
+    {% endif %}
+</section>
+<section class="promo-banner">
+    <p>Piese recomandate de la partenerii nostri <a href="https://amprevolt.com" target="_blank">amprevolt.com</a>,
+        intra pe site-ul lor de pe linkurile noastre si vei avea 15% reducere extra la checkout.</p>
+</section>
+
+{% endblock %}
+

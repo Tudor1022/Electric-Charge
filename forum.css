@@ -1,0 +1,253 @@
+/* General Settings */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url("/static/images/bck.jpg");
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.forum-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    padding: 20px;
+    background: linear-gradient(135deg, green, black);
+    color: #fff;
+}
+
+/* Header Section */
+.forum-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.forum-header h1 {
+    color: #00B953;
+    font-size: 50px;
+    font-weight: 600;
+}
+.forum-header p {
+    color: white;
+    font-size: 20px;
+}
+
+/* Post Form */
+.post-section {
+    margin-bottom: 30px;
+}
+.post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.post-form textarea {
+    width: 100%;
+    max-width: 900px;
+    height: 120px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    resize: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.post-form .btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.btn.primary {
+    background: #00B953;
+    color: white;
+}
+.btn.primary:hover {
+    background: #1e3c72;
+}
+.btn.secondary {
+    background: #333;
+    font-size: 13px;
+    color: white;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.btn.secondary:hover {
+    background: #00B953;
+}
+.btn.danger {
+    background: #e74c3c;
+    color: white;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.btn.danger:hover {
+    background: #c0392b;
+}
+.btn.small {
+    padding: 5px 15px;
+    font-size: 14px;
+}
+
+/* Posts Section */
+.posts-container h2 {
+    text-align: center;
+    color: #00B953;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+.post-list {
+    list-style: none;
+    padding: 0;
+}
+.post-card {
+    background: #f9f9f9;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.post-header strong {
+    font-size: 18px;
+    color: #00B953;
+}
+.post-header .post-date {
+    font-size: 14px;
+    color: #333;
+}
+.post-content {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Comments Section */
+.comments-section {
+    margin-top: 20px;
+}
+.comments-section h3 {
+    font-size: 18px;
+    color: #00B953;
+    margin-bottom: 10px;
+}
+.comment-list {
+    list-style: none;
+    padding: 0;
+}
+.comment-card {
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.comment-card strong {
+    color: #333;
+    font-size: 16px;
+}
+.comment-card .comment-date {
+    color: #888;
+    font-size: 12px;
+    margin-left: 5px;
+}
+.comment-form {
+    margin-top: 15px;
+}
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    resize: none;
+}
+.comment-form .btn {
+    margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .forum-wrapper {
+        padding: 15px;
+    }
+    .forum-header h1 {
+        font-size: 40px;
+    }
+    .forum-header p {
+        font-size: 18px;
+    }
+    .post-form textarea {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .forum-wrapper {
+        padding: 10px;
+    }
+    .forum-header h1 {
+        font-size: 35px;
+    }
+    .forum-header p {
+        font-size: 16px;
+    }
+    .post-form textarea {
+        height: 100px;
+    }
+    .btn {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .forum-wrapper {
+        width: 95%;
+        padding: 5px;
+    }
+    .forum-header h1 {
+        font-size: 28px;
+    }
+    .forum-header p {
+        font-size: 14px;
+    }
+    .post-form textarea {
+        font-size: 14px;
+        height: 80px;
+    }
+    .btn {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+    .post-header strong {
+        font-size: 16px;
+    }
+    .post-content {
+        font-size: 14px;
+    }
+    .comments-section h3 {
+        font-size: 16px;
+    }
+    .comment-card strong {
+        font-size: 14px;
+    }
+    .comment-card .comment-date {
+        font-size: 10px;
+    }
+}

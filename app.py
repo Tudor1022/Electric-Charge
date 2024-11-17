@@ -1,24 +1,23 @@
 import hashlib
 from sqlite3 import IntegrityError
-
+from tkinter import Image
+import articles as art
 from flask import Flask, render_template, redirect, url_for, flash, request, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import openai  # Correct import
+import openai
 import random
 import string
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import generate_password_hash
-
 from emailSender import send_email
 
-# Set your OpenAI API details
 api_key = "f45d2cc26b2e44428f9f14b0336bd7e0"
-base_url = "https://api.aimlapi.com/v1"  # Optional, only if using a custom endpoint
-system_prompt = "simple conversation"
+base_url = "https://api.aimlapi.com/v1"
+system_prompt = "conversation related to electric cars"
 
 openai.api_key = api_key
-openai.api_base = base_url  # Only include this if you're using a custom API endpoint
+openai.api_base = base_url
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -61,10 +60,11 @@ class ElectricCar(db.Model):
     def __repr__(self):
         return f'<ElectricCar {self.name}>'
 
-
 class Produse(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), unique=True, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    image_url = db.Column(db.String(200), nullable=False)
+    product_url = db.Column(db.String(200), nullable=False)
     price = db.Column(db.Float, nullable=False)
 
 class User(db.Model):
@@ -90,14 +90,102 @@ class Comment(db.Model):
     user = db.relationship('User', backref=db.backref('comments', lazy=True))
     post = db.relationship('Post', backref=db.backref('comments', cascade='all, delete-orphan', lazy=True))
 
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    date_start = db.Column(db.String(20), nullable=False)
+    date_end = db.Column(db.String(20), nullable=False)
+    location = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text, nullable=False)
 
-# Hashing password function
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
-# Check if the hashed password matches
 def check_password(hashed_password, user_password):
     return hashed_password == hashlib.sha256(user_password.encode()).hexdigest()
+
+
+
+def add_new_products():
+    new_products = [
+        Produse(id=3, name="WALLBOX PULSAR PLUS EV 48A CHARGING STATION",
+                image_url="https://amprevolt.com/cdn/shop/products/ScreenShot2022-01-29at11.47.33AM_1800x1800.png?v=1643474982",
+                product_url="https://amprevolt.com/collections/charging-stations/products/wallbox-pulsar-plus-ev-charging-station",
+                price=649.00),
+        Produse(id=4, name="Charging Inlet",
+                image_url="https://amprevolt.com/cdn/shop/products/J1772.2.optimized_1800x1800.jpg?v=1595801419",
+                product_url="https://amprevolt.com/collections/charging-accessories/products/j1772-inlet-port",
+                price=125.00),
+        Produse(id=5, name="BUSBARS FOR STACKED TESLA BATTERY MODULES",
+                image_url="https://amprevolt.com/cdn/shop/products/tesla-battery-module-bus-bar-1-white_540x.jpg?v=1593228568",
+                product_url="https://amprevolt.com/collections/electrical/products/busbars-for-stacked-tesla-battery-modules",
+                price=45.00),
+        Produse(id=6, name="Percharge Resistor",
+                image_url="https://amprevolt.com/cdn/shop/products/battery-module-right-angle-busbar-1-white_540x.jpg?v=1593228886",
+                product_url="https://www.google.com/url?q=https://amprevolt.com/collections/motor-accessories/products/precharge-resistor&sa=D&source=editors&ust=1731763582927313&usg=AOvVaw2KwFN3lq8qcPAzjZnrnuSXLT",
+                price=32.00),
+        Produse(id=7, name="Tesla Battery Module Right Angle Busbar",
+                image_url="https://amprevolt.com/cdn/shop/products/CALBoptimized_1800x1800.jpg?v=1593216270",
+                product_url="https://www.google.com/url?q=https://amprevolt.com/collections/battery-accessories/products/tesla-battery-module-right-angle-busbar&sa=D&source=editors&ust=1731763582927994&usg=AOvVaw1AUqzhvIL5k4m7NBX7bOFB",
+                price=15.70),
+        Produse(id=8, name="CALB LITHIUM IRON PHOSPHATE CELL-CA SERIES",
+                image_url="https://amprevolt.com/cdn/shop/products/CALBoptimized_1800x1800.jpg?v=1593216270",
+                product_url="https://www.google.com/url?q=https://amprevolt.com/collections/batteries/products/calb-lithium-iron-phosphate-cell&sa=D&source=editors&ust=1731763582928630&usg=AOvVaw0ZNT4coB314n0lY3krKjgS",
+                price=150.00),
+        Produse(id=9, name="LECTRON TESLA/J1772 ADAPTER",
+                image_url="https://amprevolt.com/cdn/shop/products/IMG_20220920_130903_480_1800x1800.jpg?v=1669043588",
+                product_url="https://www.google.com/url?q=https://amprevolt.com/collections/charging-stations/products/tesla-j1772-adapter&sa=D&source=editors&ust=1731763582929239&usg=AOvVaw338F8lTvVj-apIhWwdTBf_",
+                price=159.00),
+        Produse(id=10, name="TSM 600W DC-DC CONVERTER",
+                image_url="https://amprevolt.com/cdn/shop/products/tsm-dc-converter-1-white_540x.jpg?v=1593229382",
+                product_url="https://www.google.com/url?q=https://amprevolt.com/collections/brakes/products/vacuum-switch&sa=D&source=editors&ust=1731763582930636&usg=AOvVaw14D9_8OxW2kutOGioT-lia",
+                price=200.00),
+        Produse(id=11, name="CVR VACUUM SWITCH",
+                image_url="https://amprevolt.com/cdn/shop/products/ScreenShot2022-05-18at6.22.19PM_1800x1800.png?v=1652912561",
+                product_url="https://www.google.com/url?q=https://amprevolt.com/collections/brakes/products/vacuum-switch&sa=D&source=editors&ust=1731763582930636&usg=AOvVaw14D9_8OxW2kutOGioT-lia",
+                price=76.00),
+        Produse(id=12, name="Ampseal 23-pin Connector",
+                image_url="https://amprevolt.com/cdn/shop/products/ampseal-23-pin-connector-optimized_1800x1800.jpg?v=1681392103",
+                product_url="https://amprevolt.com/collections/controller-accessories/products/ampseal-23-pin-connector",
+                price=16.40),
+        Produse(id=13, name="NetGain Micro 840 System",
+                image_url="https://amprevolt.com/cdn/shop/files/Micro840_Motor_image1_1800x1800.png?v=1725036157",
+                product_url="https://amprevolt.com/collections/motors/products/netgain-micro-840-system",
+                price=2825.00),
+        Produse(id=14, name="2/0 AWG Cable",
+                image_url="https://amprevolt.com/cdn/shop/files/OrangeCable20_1800x1800.png?v=1727368098",
+                product_url="https://amprevolt.com/collections/electrical/products/2-0-awg-cable",
+                price=7.25),
+        Produse(id=15, name="12V Power Supply",
+                image_url="https://amprevolt.com/cdn/shop/files/MFG_WSU-Series_360x.jpg?v=1711139642",
+                product_url="https://amprevolt.com/collections/electrical/products/12v-power-supply",
+                price=13.00),
+        Produse(id=16, name="J+ Booster Portable EVSE, 21 ft. cable",
+                image_url="https://amprevolt.com/cdn/shop/products/IMG_20220920_132041_898_1800x1800.jpg?v=1669044692",
+                product_url="https://amprevolt.com/collections/charging-stations/products/j-booster-portable-evse-21-ft-cable",
+                price=745.00),
+        Produse(id=17, name="TBS E-Xpert Pro Display",
+                image_url="https://amprevolt.com/cdn/shop/products/tbs-expert-pro-1-white_1800x1800.jpg?v=1593228374",
+                product_url="https://amprevolt.com/collections/instrumentation/products/tbs-e-xpert-pro",
+                price=225.00),
+        Produse(id=18, name="CVR Vacuum Switch",
+                image_url="https://amprevolt.com/cdn/shop/products/ScreenShot2022-05-18at6.22.19PM_360x.png?v=1652912561",
+                product_url="https://amprevolt.com/collections/brakes/products/vacuum-switch",
+                price=76.00)
+    ]
+
+    # Add new products, avoiding duplicates
+    for product in new_products:
+        existing_product = Produse.query.filter_by(name=product.name).first()
+        if not existing_product:
+            db.session.add(product)
+            print(f"Added {product.name} to the database.")
+        else:
+            print(f"{product.name} already exists in the database.")
+
+    # Commit the changes to the database
+    db.session.commit()
+    print("All new products added successfully!")
 
 
 def add_new_cars():
@@ -168,6 +256,58 @@ def add_new_cars():
 
     # Commit the new cars to the database
     db.session.commit()
+
+def add_new_events():
+    new_events = [
+        Event(
+            name="Green Car Expo 2025",
+            date_start="2024-11-15",
+            date_end="2024-11-17",
+            location="Iași, Palas Mall",
+            description="Expoziție dedicată vehiculelor electrice și hibrid, cu posibilitatea de a testa diverse modele și de a participa la workshop-uri despre mobilitatea sustenabilă."
+        ),
+        Event(
+            name="Salonul Auto București 2025",
+            date_start="2024-12-20",
+            date_end="2024-07-30",
+            location="București, Romexpo",
+            description="Expoziție auto de anvergură, cu o secțiune specială dedicată vehiculelor electrice și hibrid, unde producătorii își prezintă cele mai noi modele și tehnologii."
+        ),
+        Event(
+            name="Electric Drive 2025",
+            date_start="2025-01-10",
+            date_end="2025-01-12",
+            location="Cluj-Napoca, Sala Polivalentă",
+            description="Conferință și expoziție axată pe infrastructura de încărcare, inovații în baterii și soluții de mobilitate electrică urbană."
+        ),
+        Event(
+            name="E-Mobility Forum 2025",
+            date_start="2025-02-05",
+            date_end="2025-02-06",
+            location="Timișoara, Centrul Regional de Afaceri",
+            description="Forum ce reunește experți în mobilitate electrică, autorități locale și investitori, discutând despre dezvoltarea infrastructurii și adoptarea vehiculelor electrice în România."
+        ),
+        Event(
+            name="Conferința Națională de Mobilitate Electrică 2025",
+            date_start="2025-02-15",
+            date_end="2025-02-16",
+            location="București, Palatul Parlamentului",
+            description="Eveniment dedicat politicilor și strategiilor naționale privind mobilitatea electrică, reunind factori de decizie, producători auto și experți în domeniu."
+        )
+    ]
+
+    # Add new events, avoiding duplicates
+    for event in new_events:
+        existing_event = Event.query.filter_by(name=event.name).first()
+        if not existing_event:
+            db.session.add(event)
+            print(f"Added {event.name} to the database.")
+        else:
+            print(f"{event.name} already exists in the database.")
+
+    # Commit the changes to the database
+    db.session.commit()
+    print("All new events added successfully!")
 
 
 @app.route('/')
@@ -256,17 +396,70 @@ def logout():
 def guide():
     return "Guide page"
 
+@app.route('/atractii')
+def atractii():
+    return render_template("atractii.html")
+
+@app.route('/calendar')
+def calendar():
+    return render_template('calendar.html')
+
+@app.route('/api/events')
+def get_events():
+    events = Event.query.all()
+    event_data = [
+        {
+            "title": event.name,
+            "start": event.date_start,
+            "end": event.date_end,
+            "location": event.location,
+            "description": event.description
+        }
+        for event in events
+    ]
+    return jsonify(event_data)
+
 @app.route('/news')
 def news():
     return render_template("stiri.html")
+
+@app.route('/hyumdaiArticle')
+def hyumdaiArticle():
+    return render_template("artico.html", title="Noutati Kia", content=art.articolKia, image_url="https://assets.newatlas.com/dims4/default/e5bd2b3/2147483647/strip/true/crop/6000x4000+0+0/resize/840x560!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Fad%2Fa9%2Fb8f822d94e85a60c8d81defdae5c%2F2022-kia-ev6-2.JPG")
+
+@app.route('/viitorEvArticle')
+def viitorEvArticle():
+    return render_template("artico.html", title="Cum ar putea arata viitorul masinilor EV?", content=art.viitor, image_url="https://cdn.g4media.ro/wp-content/uploads/2023/07/masina-viitorului.jpeg")
+
+@app.route('/indiaArticle')
+def indiaArticle():
+    return render_template("artico.html", title="Cele mai durabile masini cu range electric in India .", content=art.india, image_url="https://spn-sta.spinny.com/blog/20230907221752/Tata-Nexon-EV-5-jpg.webp?compress=true&quality=80&w=1100&dpr=1.3")
+
+@app.route('/cybertruckArticle')
+def cybertruckArticle():
+    return render_template("artico.html", title="Cybertruck pe strazile din Romania", content=art.cybertruck, image_url="https://hips.hearstapps.com/hmg-prod/images/2025-tesla-cybertruck-3-672e75cce7814.jpg?crop=0.607xw:0.512xh;0.0994xw,0.399xh&resize=1200:*")
+
 
 @app.route('/map')
 def map():
     return render_template('map.html')
 
-@app.route('/market')
+@app.route('/market', methods=['GET'])
 def market():
-    return render_template('market.html')
+    products = Produse.query.all()
+    return render_template('market.html', products=products)
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.args.get('query', '').strip()
+    if query:
+        filtered_products = Produse.query.filter(Produse.name.contains(query)).all()
+        return render_template('market.html', products=filtered_products, query=query)
+    else:
+        flash("Enter a valid search term!", "warning")
+        return redirect(url_for('market'))
+
 
 @app.route('/recenzii')
 def recenzii():
@@ -363,6 +556,9 @@ def cars():
 
 if __name__ == '__main__':
     with app.app_context():
+        db.drop_all()
         db.create_all()
-        add_new_cars()# Populează baza de date doar dacă este necesar
+        add_new_cars()
+        add_new_events()
+        add_new_products()
     app.run(debug=True)
