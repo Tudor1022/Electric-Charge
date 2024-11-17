@@ -1,28 +1,36 @@
-{% extends "navFooterBase.html" %}
+{% extends 'navFooterBase.html' %}
 
-{% block title %}EV HUB Landing{% endblock %}
+{% block title %}
+EV HUB Landing
+{% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/cars.css') }}">
 
+<!-- Banner Section -->
+<div class="banner">
+    <div class="banner-overlay">
+        <h1>COMPARA PRODUSE</h1>
+    </div>
+</div>
+
 <div class="container">
-    <h1 class="text-center my-4">Compare Electric Cars</h1>
     <div class="row d-flex justify-content-between mb-4">
         <div class="select-container">
-    <select id="car1-select" class="form-control">
-        <option value="" class="option-text">Select First Car</option>
-        {% for car in cars %}
-            <option value="{{ car.id }}">{{ car.name }}</option>
-        {% endfor %}
-    </select>
+            <select id="car1-select" class="form-control">
+                <option value="" class="option-text">Select First Car</option>
+                {% for car in cars %}
+                    <option value="{{ car.id }}">{{ car.name }}</option>
+                {% endfor %}
+            </select>
 
-    <select id="car2-select" class="form-control">
-        <option value="" class="option-text">Select Second Car</option>
-        {% for car in cars %}
-            <option value="{{ car.id }}">{{ car.name }}</option>
-        {% endfor %}
-    </select>
-</div>
+            <select id="car2-select" class="form-control">
+                <option value="" class="option-text">Select Second Car</option>
+                {% for car in cars %}
+                    <option value="{{ car.id }}">{{ car.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
 
     <div class="car-comparison">
@@ -62,3 +70,8 @@
     });
 </script>
 {% endblock %}
+
+<style>
+
+
+</style>

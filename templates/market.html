@@ -1,35 +1,49 @@
 {% extends 'navFooterBase.html' %}
+{% block title %}Electric charge{% endblock %}
 
-{% block title %}Electric Car Parts{% endblock %}
 
-{% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/market.css') }}">
-<h1 class="titlu">Electric Car Parts</h1>
-<div class="product-container">
-    <div class="product-card">
-        <img src="https://via.placeholder.com/150" alt="Electric Motor">
-        <h2>Electric Motor</h2>
-        <p>Price: $1200</p>
-        <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-        <img src="https://souqeshop.ro/wp-content/uploads/2021/06/FFM_9115-copy.jpg" alt="Battery Pack">
-        <h2>Battery Pack</h2>
-        <p>Price: $800</p>
-        <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-        <img src="https://via.placeholder.com/150" alt="Charging Station">
-        <h2>Charging Station</h2>
-        <p>Price: $300</p>
-        <button>Add to Cart</button>
-    </div>
-    <div class="product-card">
-        <img src="https://via.placeholder.com/150" alt="Regenerative Braking System">
-        <h2>Regenerative Braking System</h2>
-        <p>Price: $450</p>
-        <button>Add to Cart</button>
-    </div>
-    <!-- Add more product cards as needed -->
-</div>
+    {% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/market.css') }}">
+
+    <header class="header">
+        <div class="banner">
+            <h1>GASESTE <span>PIESE</span></h1>
+        </div>
+    </header>
+
+    <!-- Promotional Banner Section -->
+
+
+    <section class="search-bar">
+        <a href="{{ url_for('market') }}"><h2>CAUTA PIESE</h2></a>
+    <form class="search-container" action="{{ url_for('search') }}" method="get">
+        <input
+            type="text"
+            name="query"
+            placeholder="Caută piesele aici..."
+            value="{{ query|default('') }}">
+        <button class="search-button" type="submit">🔍</button>
+    </form>
+</section>
+
+
+    <section class="product-grid">
+    {% if products %}
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.price }} RON</p>
+            <a href="{{ product.product_url }}" class="view-link">Verifica stoc</a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-results">Niciun produs găsit pentru căutarea: "{{ query }}", intra pe site-ul partenerilor, <a href="https://amprevolt.com" target="_blank">amprevolt.com</a>
+        pentru o cautare mai detaliata.</p>
+    {% endif %}
+</section>
+
+<section class="promo-banner">
+        <p>Piese recomandate de la partenerii nostri <a href="https://amprevolt.com" target="_blank">amprevolt.com</a>, intra pe site-ul lor de pe linkurile noastre si vei avea 15% reducere extra la checkout.</p>
+    </section>
 {% endblock %}
