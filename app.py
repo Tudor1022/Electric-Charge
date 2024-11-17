@@ -461,6 +461,7 @@ def search():
         return redirect(url_for('market'))
 
 
+
 @app.route('/recenzii')
 def recenzii():
     return render_template('market.html')
