@@ -6,8 +6,8 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
     <style>
-        /* Styling for the page container */
-        .calendar-container {
+        .page-container {
+            display: flex;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
@@ -16,11 +16,48 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
+        .events-list {
+            flex: 1;
+            margin-right: 20px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 600px;
+        }
+
+        .events-list h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             color: #333;
-            margin-bottom: 20px;
+        }
+
+        .event-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .event-item:hover {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .event-description {
+            display: none;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .event-item:hover .event-description {
+            display: block;
+        }
+
+        .calendar-container {
+            flex: 2;
         }
 
         #calendar {
@@ -29,7 +66,6 @@
             background-color: white;
         }
 
-        /* FullCalendar custom styles */
         .fc-toolbar {
             background-color: #28a745;
             color: white;
@@ -63,27 +99,77 @@
         }
     </style>
 
-    <div class="calendar-container">
-        <h1>Calendar evenimente</h1>
-        <div id="calendar"></div>
+    <div class="page-container">
+        <div class="events-list">
+            <h2>Lista Evenimentelor</h2>
+            <div id="events-container"></div>
+        </div>
+
+        <div class="calendar-container">
+            <h1>Calendar Evenimente</h1>
+            <div id="calendar"></div>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            const calendarEl = document.getElementById('calendar');
+            const eventsContainer = document.getElementById('events-container');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                events: '/api/events', // Fetch events from the API endpoint
-                eventClick: function (info) {
+                events: '/api/events', // Fetch events from API endpoint
+                datesSet: function(view) {
+                    // Filter events for the current visible month
+                    const startDate = view.start; // Start of the visible range
+                    const endDate = view.end;   // End of the visible range
+
+                    fetch('/api/events') // Fetch all events from the endpoint
+                        .then(response => response.json())
+                        .then(events => {
+                            // Filter events within the visible month
+                            const filteredEvents = events.filter(event => {
+                                const eventDate = new Date(event.start);
+                                return eventDate >= startDate && eventDate < endDate;
+                            });
+
+                            // Update the events list in the sidebar
+                            updateEventsList(filteredEvents);
+                        });
+                },
+                eventClick: function(info) {
                     alert("Event: " + info.event.title + "\nDescription: " + info.event.extendedProps.description);
                 }
             });
+
             calendar.render();
+
+            function updateEventsList(events) {
+                // Clear the current list
+                eventsContainer.innerHTML = '';
+
+                // Populate the list with filtered events
+                events.forEach(event => {
+                    const eventItem = document.createElement('div');
+                    eventItem.className = 'event-item';
+                    eventItem.innerHTML = `
+                        <strong>${event.title}</strong><br>
+                        <span>${new Date(event.start).toLocaleDateString()}</span>
+                        <div class="event-description">${event.description || 'Fără descriere'}</div>
+                    `;
+                    eventsContainer.appendChild(eventItem);
+                });
+
+                // If no events are found, display a message
+                if (events.length === 0) {
+                    eventsContainer.innerHTML = '<p>Nu există evenimente pentru această perioadă.</p>';
+                }
+            }
         });
     </script>
 {% endblock %}

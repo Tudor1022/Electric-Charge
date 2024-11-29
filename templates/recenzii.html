@@ -1,0 +1,202 @@
+{% extends "navFooterBase.html" %}
+
+{% block title %}EV HUB Landing{% endblock %}
+
+{% block content %}
+<style>
+    /* General Reset */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Image Section */
+    .image-section {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position: relative; /* Needed for positioning the text */
+      padding-top: 50px;
+    }
+
+    .image-box {
+      width: 1800px;
+      height: 600px;
+      background-image: url('https://hyundai-focsani.ro/wp-content/uploads/2021/03/IONIQ5KVS_6_MAINHERO_5x42-1500x630.jpeg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(40%);
+      position: relative;
+    }
+
+    /* Text Over Image */
+    .text-over-image {
+      position: absolute;
+      top: 20%;
+      left: 15%; /* Position 15% from the left */
+      text-align: left;
+      color: white;
+    }
+
+    .text-over-image h1 {
+      font-size: 7rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .text-over-image p {
+      font-size: 1.5rem;
+      margin: 10px 0 0 0;
+    }
+
+    /* Search Box */
+    .search-box {
+      width: 1800px;
+      background-color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding-top: 100px;
+    }
+
+    .search-box label {
+      font-size: 50px;
+      line-height: 69px;
+      font-weight: bold;
+      color: #333;
+      padding-left: 100px;
+      margin-bottom: 40px;
+    }
+
+    .search-box input {
+      width: 40%;
+      height: 50px;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 40px;
+      margin-right: 60px;
+      background-color: #d9d9d9;
+    }
+
+    /* Row Section */
+    .row {
+      width: 1800px;
+      display: flex;
+      margin: 0 auto; /* Centering */
+    }
+
+    .row .image-box {
+      width: 900px;
+      height: 400px;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(50%);
+      flex-shrink: 0; /* Prevents resizing on zoom */
+    }
+
+    .row .text-box {
+      width: 900px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+      background-color: black;
+      flex-shrink: 0; /* Prevents resizing on zoom */
+    }
+
+    .row:nth-child(2) .text-box {
+      background-color: gray;
+    }
+
+    .row:nth-child(3) .text-box {
+      background-color: black;
+    }
+
+    .row:nth-child(4) .text-box {
+      background-color: gray;
+    }
+
+    .text-box h1 {
+      font-size: 5rem;
+      font-weight: bold;
+      margin: 0 0 10px 0;
+    }
+
+    .text-box p {
+      font-size: 14px;
+      margin: 0 0 20px 0;
+      color: #ccc;
+    }
+
+    .text-box button {
+      width: 100px;
+      height: 40px;
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .text-box button:hover {
+      background-color: darkgreen;
+    }
+  </style>
+
+<div class="image-section">
+    <div>
+      <div class="image-box"></div>
+      <div class="text-over-image">
+        <h1>RECENZII<BR>
+           SPECIALISTI</h1>
+
+      </div>
+      <div class="search-box">
+        <label for="model-search">CAUTA <br> MODELUL AICI</label>
+        <input type="text" id="model-search" placeholder="Type here...">
+      </div>
+    </div>
+  </div>
+
+  <!-- Rows with Image and Text -->
+  <div class="row">
+    <div class="image-box" style="background-image: url('https://www.usnews.com/object/image/00000190-041c-df3b-a1d8-87dfe9dc0000/24-hyundai-kona-electric-ext1.jpg?update-time=1718056041928&size=responsiveGallery');"></div>
+    <div class="text-box">
+      <h1>KONA, SE POATE MAI BINE DE ATAT.</h1>
+      <p>Review de Eduard Fatu • Hyundai Kona 2024.</p>
+      <button>Citeste</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="image-box" style="background-image: url('https://www.hotelimpulse.at/de/asset/498107/800x533');"></div>
+    <div class="text-box">
+      <h1>HYUNDAI MUTA CASTIGATOR!</h1>
+      <p>Review de Lungu Lavinia • Hyundai Ioniq5 2024.</p>
+      <button>Citeste</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="image-box" style="background-image: url('https://mobilityportal.eu/wp-content/uploads/2024/07/Tesla-Model-3.jpg');"></div>
+    <div class="text-box">
+      <h1>TESLA 3 NU S-A SCHIMBAT!</h1>
+      <p>Review de Lungu Lavinia • Tesla Model 3 2024.</p>
+      <button>Citeste</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="image-box" style="background-image: url('https://media.autoexpress.co.uk/image/private/s--kNxq5ve1--/f_auto,t_content-image-full-desktop@1/v1619777538/autoexpress/2021/04/MINI%20Electric%202021%20UK-6.jpg');"></div>
+    <div class="text-box">
+      <h1>DE CE ELECTRIC?</h1>
+      <p>Review de Donciu Cristian • Mini Cooper 2024.</p>
+      <button>Citeste</button>
+    </div>
+  </div>
+
+{% endblock %}

@@ -3,38 +3,180 @@
 {% block title %}EV HUB Landing{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-<div class="landing-page">
-    <!-- Hero Section (Banner) -->
-    <div class="hero-section">
-        <img src="{{ url_for('static', filename='images/bannerHome.jpg') }}" alt="Electric Charge Banner" class="banner-image">
-        <div class="overlay">
-            <div class="container text-center">
-                <h1>Better Solutions For Your EV Journey</h1>
-                <p>We are here to guide you through the world of electric vehicles.</p>
-                <div class="cta-buttons">
-                    <a href="{{ url_for('guide') }}" class="btn">Electric Cars Guide</a>
-                    <a href="{{ url_for('news') }}" class="btn">News</a>
-                </div>
-            </div>
+<style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+        }
+        .container{
+            max-width: 2100px;
+        }
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 90%;
+            filter:brightness(50%);
+            margin: 40px auto 0; /* Added 40px of space above */
+            height: 580px;
+            background: url('https://www.odat.ro/wp-content/uploads/2024/09/interesul-romanilor-pentru-masini-electrice-859x250.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+        }
+        .hero-text {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            position: absolute;
+            filter:brightness(100%);
+            left: 15%;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        .hero-text h1 {
+            font-size: 5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .hero-text .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 24px;
+            background-color: #00cc66;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease;
+        }
+        .hero-text .btn:hover {
+            background-color: #008c4a;
+        }
+        .hero-text .btn:active {
+            background-color: #006f39;
+        }
+
+        /* Content Section */
+        .content-section {
+            display: flex;
+            width: 90%;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        /* Left Box (Text Section) */
+        .text-box {
+            flex: 2; /* Make text box a bit narrower */
+            background-color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .text-box h1 {
+            font-size: 4rem;  /* Increase font size */
+            margin-bottom: 30px; /* More space between the paragraph and header */
+            text-align: left;
+            color: black;
+            font-family: 'Impact', sans-serif; /* Apply Impact font */
+            font-weight: bold; /* Make it bold */
+            padding-left: 2%;
+            padding-top: 2%;
+        }
+        .text-box h2 {
+            color:black;
+            font-size: 4rem; /* Increase font size */
+            margin-top: 30px;  /* More space between the paragraph and header */
+            text-align: right;
+            font-family: 'Impact', sans-serif; /* Apply Impact font */
+            font-weight: bold; /* Make it bold */
+            transform: translateX(20%);  /* Move the image to the right */
+            padding-bottom: 3%;
+            position: relative;
+  z-index: 1;
+        }
+
+        /* Paragraph 1 */
+        .text-box p1 {
+            font-size: 0.94rem;
+            line-height: 1.4;
+            color: black;
+            text-align: left;
+            max-width: 66%; /* Limit the paragraph width to 2/3 of the section */
+            margin: 20px 0; /* Center the paragraph and add space between the paragraphs */
+            padding-left: 5%;
+        }
+
+        /* Paragraph 2 */
+        .text-box p2 {
+            font-size: 0.94rem;
+            line-height: 1.4;
+            color: black;
+            text-align: right;
+            transform: translateX(30%);  /* Move to the right */
+
+            max-width: 80%; /* Limit the paragraph width to 2/3 of the section */
+            margin: 20px auto;
+            padding-right: 0%;
+            position: relative;
+  z-index: 1;
+        }
+
+        /* Right Box (Image Section) */
+        .image-box {
+            flex: 2;  /* Make image section a bit wider */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            filter:brightness(60%);
+            position: relative;  /* Enable positioning */
+        }
+        .image-box img {
+    width: 100%;            /* Ensures the image takes the full width of the container */
+    height: auto;           /* Keeps the aspect ratio of the image */
+    object-fit: cover;      /* Makes sure the image covers the container without distortion */
+    transform: none;        /* Removes the right translation */
+    position: absolute;
+  z-index: -1;
+}
+
+        /* Image Style */
+    </style>
+
+<div class="hero">
+        <div class="hero-text">
+            <h1>
+                CONNECT.<br>
+                CHARGE.<br>
+                THRIVE.
+            </h1>
+            <a href="#about" class="btn">Find Out More</a>
         </div>
     </div>
 
-    <!-- About Us Section -->
-    <div class="about-section">
-        <div class="container text-center">
-            <h2>About Us</h2>
-            <p>        Electric Charge este o aplicație dedicată proprietarilor și utilizatorilor de mașini electrice, concepută pentru a centraliza toate resursele esențiale într-o singură platformă. Aceasta oferă un punct de acces unic și integrat, destinat să simplifice și să optimizeze experiența de utilizare a vehiculelor electrice.</p>
+    <!-- Content Section -->
+    <div class="content-section">
+        <!-- Text Box -->
+        <div class="text-box">
+            <h1>ABOUT US</h1>
+            <p1>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p1>
+            <h2>OUR MISSION</h2>
+            <p2>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p2>
+        </div>
+
+        <!-- Image Box -->
+        <div class="image-box">
+            <img src="{{ url_for('static', filename='images/homeImg2.jpeg') }}" alt="Placeholder Image">
         </div>
     </div>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="container text-center">
-            <h3>Contact Us</h3>
-            <p>Email: contact@evhub.com | Phone: +123-456-7890</p>
-            <p>Follow us on our social platforms for updates!</p>
-        </div>
-    </footer>
-</div>
 {% endblock %}

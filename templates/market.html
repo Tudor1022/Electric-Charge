@@ -7,7 +7,7 @@
 
     <header class="header">
         <div class="banner">
-            <h1>GASESTE <span>PIESE</span></h1>
+            <h1>GĂSEȘTE <span>PIESE</span></h1>
         </div>
     </header>
 
@@ -15,7 +15,7 @@
 
 
     <section class="search-bar">
-        <a href="{{ url_for('market') }}"><h2>CAUTA PIESE</h2></a>
+        <a href="{{ url_for('market') }}"><h2>CAUTĂ PIESE</h2></a>
     <form class="search-container" action="{{ url_for('search') }}" method="get">
         <input
             type="text"
@@ -38,12 +38,12 @@
         </div>
         {% endfor %}
     {% else %}
-        <p class="no-results">Niciun produs găsit pentru căutarea: "{{ query }}", intra pe site-ul partenerilor, <a href="https://amprevolt.com" target="_blank">amprevolt.com</a>
-        pentru o cautare mai detaliata.</p>
+        <p class="no-results">Niciun produs găsit pentru produsul: "{{ query }}", intra pe site-ul partenerilor, <a href="https://amprevolt.com" target="_blank">amprevolt.com</a>
+        pentru o cautare mai detaliată.</p>
     {% endif %}
 </section>
 
 <section class="promo-banner">
-        <p>Piese recomandate de la partenerii nostri <a href="https://amprevolt.com" target="_blank">amprevolt.com</a>, intra pe site-ul lor de pe linkurile noastre si vei avea 15% reducere extra la checkout.</p>
+        <p>Piese recomandate de la partenerii noștri <a href="https://amprevolt.com" target="_blank">amprevolt.com</a>, intra pe site-ul lor de pe linkurile noastre și vei avea 15% reducere extra la checkout.</p>
     </section>
 {% endblock %}
