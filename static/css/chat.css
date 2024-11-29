@@ -3,10 +3,11 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    width: 80%;
+    width: 120%;
     margin: 50px auto;
     padding: 30px;
-    background: linear-gradient(135deg, green, black); /* Gradient from green to black */
+    /*background: linear-gradient(135deg, green, black); /* Gradient from green to black */
+    background-color: url("/static/images/wb.jpg")
     color: white;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -101,7 +102,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 100px;
     width: 30%; /* Adjust width for larger screens */
     flex-shrink: 0; /* Prevent shrinking */
 }

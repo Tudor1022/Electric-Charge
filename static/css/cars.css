@@ -8,9 +8,14 @@ body {
     margin-top: 10px;
 }
 
+.banner h1{
+    font-size: 400px;
+}
+
 h1 {
     text-align: center;
     color: #00B953;
+    font-size: 400px;
 }
 
 .form-control {
@@ -40,11 +45,12 @@ h1 {
 
 .car-details {
     width: 45%;
+    font-size: 20px;
     padding: 15px;
     text-align: center;
     background-color: #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 550px;
+    height: 650px;
     color: #00B953;
     margin-bottom: 20px;
 }

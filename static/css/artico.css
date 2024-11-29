@@ -1,44 +1,47 @@
-/* General Styles */
+@font-face {
+    font-family: 'Akira Expanded';
+    src: url('{{ url_for('static', filename='fonts/Akira-Expanded-Demo.woff') }}') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    /* Elegant serif font for a more sophisticated look */
     margin: 0;
     padding: 0;
-    background-color: #f1f1f1; /* Light background for subtle elegance */
+    font-family: 'Akira Expanded', sans-serif;
+    background-color: #f4f4f4;
     color: #333;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 
-
-
-.header1 {
-    background-color: #2e7d32;
-    color: white;
-    padding: 20px;
-    text-align: center; /* This centers the header text */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
+/* Transparent Header Section */
+.article-header {
+    background-color: transparent; /* Set background to transparent */
+    color: white; /* Darker text for readability */
+    text-align: center;
+    padding: 40px 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for contrast */
 }
 
-.header1 h1 {
-    font-size: 2.5em;
+.article-header h1 {
+    font-size: 4rem; /* Reduced font size for smaller title */
+    font-weight: 600;
     margin: 0;
-    text-align: center; /* Ensure h1 is centered */
-    width: 100%; /* Make sure it occupies the full width */
 }
 
 /* Article Section */
 .article-content {
     max-width: 960px;
-    margin: 0 auto;
-    padding: 50px;
+    margin: 30px auto;
+    padding: 40px;
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); /* Softer, larger shadow for depth */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-out;
 }
 
 .article-content:hover {
-    transform: translateY(-10px); /* Subtle lift effect on hover */
+    transform: translateY(-10px);
 }
 
 .image-container {
@@ -57,7 +60,7 @@ body {
 }
 
 .image-container img:hover {
-    transform: scale(1.05); /* Slight zoom effect */
+    transform: scale(1.05);
     opacity: 0.9;
 }
 
@@ -75,28 +78,10 @@ body {
 
 /* Links Styling */
 a {
-    color: #3e8e41; /* Matching green for links */
+    color: #3e8e41;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 a:hover {
-    color: #2c6e2f; /* Slightly darker green on hover */
-    transform: scale(1.05); /* Slight zoom effect on hover */
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2.5em;
-    }
-
-    .article-content {
-        padding: 30px;
-    }
-
-    .text-container p {
-        font-size: 1em;
-    }
-}

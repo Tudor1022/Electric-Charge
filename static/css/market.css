@@ -85,7 +85,7 @@ header {
 
 /* Search Bar Section */
 .search-bar {
-    background-color: #2e7d32; /* Darker green for better contrast */
+    background-color: transparent; /* Darker green for better contrast */
     color: white;
     padding: 40px 20px;
     text-align: center;

@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #f3f3f3; /* Softer background to reduce strain */
+    /*background-color: #f3f3f3; /* Softer background to reduce strain */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +14,7 @@ body {
 .container {
     width: 90%;
     max-width: 1200px;
-    background-color: white; /* Contrasting white background for the container */
+    /*background-color: white; /* Contrasting white background for the container */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Elevated box shadow for depth */
     border-radius: 12px;
     overflow: hidden; /* Ensures no child elements overflow the rounded corners */
@@ -23,7 +23,7 @@ body {
 }
 
 .header {
-    background-color: #1e9564; /* A softer green for the header */
+    /*background-color: #1e9564; /* A softer green for the header */
     padding: 20px;
     font-size: 28px;
     font-weight: bold;
