@@ -461,11 +461,6 @@ def search():
         return redirect(url_for('market'))
 
 
-
-@app.route('/recenzii')
-def recenzii():
-    return render_template('market.html')
-
 @app.route("/chatbot", methods=["GET", "POST"])
 def chat():
     if request.method == "POST":
@@ -484,7 +479,12 @@ def forumMenu():
 def marketMenu():
     return render_template("meniuri.html", heading1='COMPARĂ \n MAȘINI EV', heading2='GĂSEȘTE \n PIESE',
                            heading3='RECENZII \n SPECIALIȘTI', button1='cars',
-                           button2='market', button3='chat',image_url1="/static/images/comp.png", image_url2="/static/images/magazin.png", image_url3="/static/images/rec.png")
+                           button2='market', button3='recenzii',image_url1="/static/images/comp.png", image_url2="/static/images/magazin.png", image_url3="/static/images/rec.png")
+
+
+@app.route('/recenzii')
+def recenzii():
+    return render_template('recenzii.html')
 
 @app.route('/forum', methods=['GET', 'POST'])
 def forum():
