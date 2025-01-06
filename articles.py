@@ -168,4 +168,3 @@ Cybertruck-ul are potențialul de a schimba piața auto din România, în specia
     <li><a href="https://www.tesla.com/cybertruck">Tesla's official announcement</a></li>
     <li><a href="https://www.electrive.com/cybertruck-tour">Cybertruck Europe tour</a></li>
 </ol>'''
-

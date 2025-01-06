@@ -2,6 +2,7 @@ import hashlib
 from sqlite3 import IntegrityError
 from tkinter import Image
 import articles as art
+import ghid as ghid
 from flask import Flask, render_template, redirect, url_for, flash, request, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -44,6 +45,17 @@ def generate_response(user_prompt):
 def generate_random_password(length=10):
     characters = string.ascii_letters + string.digits
     return ''.join(random.choice(characters) for i in range(length))
+
+class Tutorial(db.Model):
+    __tablename__ = 'tutorials'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(200), nullable=False)
+    video_path = db.Column(db.String(500), nullable=False)
+    upload_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Tutorial {self.title}: {self.video_path}>'
 
 class ElectricCar(db.Model):
     __tablename__ = 'electric_cars'
@@ -186,6 +198,29 @@ def add_new_products():
     # Commit the changes to the database
     db.session.commit()
     print("All new products added successfully!")
+
+def add_tutorials():
+    with app.app_context():
+        # Create six tutorial entries
+        tutorials = [
+            Tutorial(title='Cum conduci corect o mașină electrică', video_path='/static/videos/cumconduci.mp4'),
+            Tutorial(title='Cum funcționează o mașină electrică', video_path='/static/videos/cumMasini.mp4'),
+            Tutorial(title='Încarcă mașina acasa!', video_path='/static/videos/incarcareHome.mp4'),
+            Tutorial(title='Ghid pentru încărcarea mașinii', video_path='/static/videos/incarcareIncepatori.mp4'),
+            Tutorial(title='Încarcă-ți mașina cu energie solară!', video_path='/static/videos/incarcareSolar.mp4'),
+            Tutorial(title='Probleme frecvente cu încărcarea', video_path='/static/videos/problemeIncarcare.mp4'),
+        ]
+
+        # Add tutorials to the session
+        db.session.add_all(tutorials)
+
+        # Commit the session to the database
+        db.session.commit()
+
+        # Query and print all tutorials to confirm addition
+        all_tutorials = Tutorial.query.all()
+        for tutorial in all_tutorials:
+            print(tutorial)
 
 
 def add_new_cars():
@@ -394,7 +429,17 @@ def logout():
 
 @app.route('/guide')
 def guide():
-    return "Guide page"
+    return render_template("ghid.html")
+
+@app.route('/ghid_prima_achizitie')
+def achizitie():
+    return render_template("artico.html", title="Ghidul pentru prima achiziție a unei mașini electrice", content=ghid.prima_achizitie)
+@app.route('/ghid_intretinere')
+def intretinere():
+    return render_template("artico.html", title="Ghidul pentru întreținerea unei mașini electrice", content=ghid.intretinere_ev)
+@app.route('/incarcare')
+def incarcare():
+    return render_template("artico.html", title="Ce poți face cât ți se încarcă mașina?", content=ghid.activitati_incarcare_ev)
 
 @app.route('/atractii')
 def atractii():
@@ -403,6 +448,11 @@ def atractii():
 @app.route('/calendar')
 def calendar():
     return render_template('calendar.html')
+
+@app.route('/tutoriale')
+def tutorials():
+    tutorials = Tutorial.query.all()
+    return render_template('tutorials.html', tutorials=tutorials)
 
 @app.route('/api/events')
 def get_events():
@@ -557,7 +607,9 @@ def cars():
 
 if __name__ == '__main__':
     with app.app_context():
+        db.drop_all()
         db.create_all()
+        add_tutorials()
         add_new_cars()
         add_new_events()
         add_new_products()
