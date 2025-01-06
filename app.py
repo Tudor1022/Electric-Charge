@@ -453,6 +453,32 @@ def tutorials():
     tutorials = Tutorial.query.all()
     return render_template('tutorials.html', tutorials=tutorials)
 
+@app.route('/tryBefore')
+def tryBefore():
+    cars = ElectricCar.query.limit(6).all()
+    return render_template('try.html', cars=cars)
+
+@app.route('/test-drive/<int:car_id>', methods=['GET', 'POST'])
+def test_drive(car_id):
+    car = ElectricCar.query.get_or_404(car_id)
+
+    if request.method == 'POST':
+        name = request.form['name']
+        surname = request.form['surname']
+        email = request.form['email']
+        phone = request.form['phone']
+        duration = request.form['duration']
+
+        if int(duration) > 48:
+            flash("Durata maximă de testare este de 48 de ore!", "error")
+            return redirect(url_for('test_drive', car_id=car_id))
+
+        # Logica de salvare sau trimitere a datelor
+        flash(f"Test drive-ul pentru {car.name} a fost solicitat cu succes!", "success")
+        return redirect(url_for('tryBefore'))
+
+    return render_template('tryForm.html', car=car)
+
 @app.route('/api/events')
 def get_events():
     events = Event.query.all()
@@ -527,8 +553,8 @@ def forumMenu():
 @app.route('/marketMenu')
 def marketMenu():
     return render_template("meniuri.html", heading1='COMPARĂ \n MAȘINI EV', heading2='GĂSEȘTE \n PIESE',
-                           heading3='RECENZII \n SPECIALIȘTI', button1='cars',
-                           button2='market', button3='recenzii',image_url1="/static/images/comp.png", image_url2="/static/images/magazin.png", image_url3="/static/images/rec.png")
+                           heading3='TRY \n BEFORE YOU BUY', button1='cars',
+                           button2='market', button3='tryBefore',image_url1="/static/images/comp.png", image_url2="/static/images/magazin.png", image_url3="/static/images/rec.png")
 
 
 @app.route('/recenzii')
