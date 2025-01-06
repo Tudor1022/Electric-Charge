@@ -1,0 +1,31 @@
+{% extends 'navFooterBase.html' %}
+{% block title %}Electric charge{% endblock %}
+
+    {% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/stiri.css') }}">
+    <header>
+        <h1 class="titlu-main">GHIDURI UTILE</h1>
+    </header>
+
+    <section class="articles">
+        <div class="article" style="background-image: url('static/images/achizitie.jpg');">
+            <div class="overlay">
+                <p>Ghidul pentru prima achiziție a unei mașini electrice</p>
+                <a href="{{ url_for('achizitie') }}"><button>Vezi Ghid</button></a>
+            </div>
+        </div>
+        <div class="article" style="background-image: url('static/images/intretinere.jpg');">
+            <div class="overlay">
+                <p>Ghidul pentru întreținerea unei mașini electrice</p>
+                <a href="{{ url_for('intretinere') }}"><button>Vezi Ghid</button></a>
+            </div>
+        </div>
+        <div class="article" style="background-image: url('static/images/incarcare.jpg');">
+            <div class="overlay">
+                <p>Te plictisești în timpul încărcării?</p>
+                <a href="{{ url_for('incarcare') }}"><button>Vezi Ghid</button></a>
+            </div>
+        </div>
+    </section>
+    {% endblock %}

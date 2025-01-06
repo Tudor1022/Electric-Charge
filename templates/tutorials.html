@@ -1,0 +1,96 @@
+{% extends 'navFooterBase.html' %}
+{% block title %}Electric charge{% endblock %}
+
+    {% block content %}
+    <title>Tutoriale pentru mașini EV</title>
+<style>
+        /* Stiluri generale */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0c0c0c;
+            color: #fff;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        /* Grid principal */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Cardurile */
+        .item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+            background-color: #1e1e1e;
+        }
+
+        .item video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Overlay cu text */
+.item .overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    transition: opacity 0.5s ease;
+    pointer-events: none; /* Permite click-urile să treacă prin overlay */
+}
+
+.overlay h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #fff;
+    pointer-events: auto; /* H2 rămâne interactiv dacă ai nevoie */
+}
+
+
+        /* Fade-away efect la hover pe video */
+        .item:hover .overlay {
+            opacity: 0;
+        }
+    </style>
+
+
+    <div class="container">
+        <h1>Tutoriale pentru mașini EV</h1>
+        <div class="grid">
+            {% for tutorial in tutorials %}
+            <div class="item">
+                <video controls>
+                    <source src="{{ tutorial.video_path }}" type="video/mp4">
+                    Video-ul nu poate fi redat.
+                </video>
+                <div class="overlay">
+                    <h2>{{ tutorial.title }}</h2>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

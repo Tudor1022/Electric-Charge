@@ -127,12 +127,12 @@ body::-webkit-scrollbar-thumb {
     </div>
     <div>
         <h3>SUPPORT</h3>
-        <a href="#">Tutoriale DIY</a>
-        <a href="#">Forum de suport</a>
+        <a href="{{ url_for('tutorials') }}">Tutoriale DIY</a>
+        <a href="{{ url_for('forum') }}">Comunitate</a>
     </div>
     <div>
         <h3>DE INTERES</h3>
-        <a href="#">Ghiduri intretinere</a>
+        <a href="{{ url_for('guide') }}">Ghiduri intretinere</a>
         <a href="{{ url_for('calendar') }}">Calendar evenimente</a>
     </div>
     <div>
