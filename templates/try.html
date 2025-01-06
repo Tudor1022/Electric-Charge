@@ -1,0 +1,74 @@
+{% extends 'navFooterBase.html' %}
+{% block title %}Electric charge{% endblock %}
+
+    {% block content %}
+
+
+<style>
+    .container{
+        color:#28a745;
+    }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .card button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .card button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Testați o mașină electrică</h1>
+        <p>Alegeți un model electric pe care să îl testați, oferit de partenerii noștri!</p>
+        <p>După ce completați formularul pentru mașina dorită, veți primi un e-mail de la partenerul nostru cu o ofertă și mai multe detalii.</p>
+
+        <div class="grid">
+            {% for car in cars %}
+            <div class="card">
+                <img src="{{ car.image_url }}" alt="{{ car.name }}">
+                <h3>{{ car.name }} - {{ car.manufacturer }}</h3>
+                <button onclick="location.href='{{ url_for('test_drive', car_id=car.id) }}'">Vreau să testez</button>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

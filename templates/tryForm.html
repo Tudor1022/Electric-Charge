@@ -1,0 +1,100 @@
+{% extends 'navFooterBase.html' %}
+{% block title %}Electric charge{% endblock %}
+
+{% block content %}
+
+<style>
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #555;
+    }
+
+    input, select, button {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+    }
+
+    button {
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #218838;
+    }
+
+    .error {
+        color: red;
+        margin-top: 10px;
+    }
+
+    .success {
+        color: green;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="container">
+    <h1>Formular Test Drive</h1>
+    <form method="POST" id="testDriveForm">
+        <label for="name">Nume:</label>
+        <input type="text" id="name" name="name" placeholder="Introdu numele" required>
+
+        <label for="surname">Prenume:</label>
+        <input type="text" id="surname" name="surname" placeholder="Introdu prenumele" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Introdu email-ul" required>
+
+        <label for="phone">Număr de telefon:</label>
+        <input type="text" id="phone" name="phone" placeholder="Introdu numărul de telefon" required>
+
+        <label for="duration">Durata testării (maxim 48h):</label>
+        <input type="number" id="duration" name="duration" placeholder="Durata în ore" max="48" required>
+
+        <label for="location">Locație:</label>
+        <input type="text" id="location" name="location" placeholder="Introdu locația dorită" required>
+
+        <button type="submit">Trimite</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+</div>
+
+<script>
+    document.getElementById('testDriveForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Previne trimiterea formularului pentru a putea adăuga alert-ul personalizat
+
+        // Simulează succesul formularului
+        setTimeout(function() {
+            alert('Cererea ta a fost trimisă cu succes!');
+            // Aici poți adăuga o redirecționare sau alte logici de procesare
+            // De exemplu: window.location.href = '/success-page';
+        }, 500); // Poți ajusta timpul de așteptare dacă dorești
+    });
+</script>
+
+{% endblock %}
