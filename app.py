@@ -1,6 +1,5 @@
 import hashlib
 from sqlite3 import IntegrityError
-from tkinter import Image
 import articles as art
 import ghid as ghid
 from flask import Flask, render_template, redirect, url_for, flash, request, session, jsonify
